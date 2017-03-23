@@ -98,7 +98,16 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
     };
 
     $scope.saveNewRecipe = function () {
-        var promise = recipeService.createRecipe($scope.currentRecipe)
+        //The post function doesn't need Notes or RecipeId.
+        //In fact including RecipeId causes and a null error.
+        //So, we translate currentRecipe into a smaller newRecipe.
+        var newRecipe = {
+            title: $scope.currentRecipe.title,
+            category: $scope.currentRecipe.category,
+            source: $scope.currentRecipe.source,
+            instructions: $scope.currentRecipe.instructions
+        };
+        var promise = recipeService.createRecipe(newRecipe)
         promise.then(
             function (message) {
                 $('#recipeDialog').modal('hide');
