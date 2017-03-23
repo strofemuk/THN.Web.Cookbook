@@ -137,6 +137,10 @@
     <Compile Include="Migrations\201703231620098_Initial.Designer.cs">
       <DependentUpon>201703231620098_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703231859160_RemoveKeyAttribute.cs" />
+    <Compile Include="Migrations\201703231859160_RemoveKeyAttribute.Designer.cs">
+      <DependentUpon>201703231859160_RemoveKeyAttribute.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CookbookContext.cs" />
     <Compile Include="Models\Recipe.cs" />
@@ -966,6 +970,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703231620098_Initial.resx">
       <DependentUpon>201703231620098_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231859160_RemoveKeyAttribute.resx">
+      <DependentUpon>201703231859160_RemoveKeyAttribute.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

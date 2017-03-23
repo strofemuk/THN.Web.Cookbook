@@ -5,8 +5,7 @@ namespace THN.Web.Cookbook.Models
 {
     public class RecipeNote
     {
-        [Key]
-        public int NoteId { get; set; }
+        public int RecipeNoteId { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

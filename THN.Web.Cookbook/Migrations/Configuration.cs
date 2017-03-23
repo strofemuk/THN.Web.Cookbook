@@ -48,10 +48,10 @@ namespace THN.Web.Cookbook.Migrations
 
             context.SaveChanges();
 
-            context.RecipeNotes.AddOrUpdate( rn => rn.NoteId,
+            context.RecipeNotes.AddOrUpdate( rn => rn.RecipeNoteId,
                 new RecipeNote 
                     { 
-                        NoteId=1,
+                        RecipeNoteId=1,
                         RecipeFk=1,
                         Date=DateTime.Now,
                         Text="Very tasty.",

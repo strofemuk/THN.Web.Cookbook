@@ -44,7 +44,7 @@ namespace THN.Web.Cookbook.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != recipeNote.NoteId)
+            if (id != recipeNote.RecipeNoteId)
             {
                 return BadRequest();
             }
@@ -82,7 +82,7 @@ namespace THN.Web.Cookbook.Controllers
             db.RecipeNotes.Add(recipeNote);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = recipeNote.NoteId }, recipeNote);
+            return CreatedAtRoute("DefaultApi", new { id = recipeNote.RecipeNoteId }, recipeNote);
         }
 
         // DELETE: api/RecipeNotes/5
@@ -112,7 +112,7 @@ namespace THN.Web.Cookbook.Controllers
 
         private bool RecipeNoteExists(int id)
         {
-            return db.RecipeNotes.Count(e => e.NoteId == id) > 0;
+            return db.RecipeNotes.Count(e => e.RecipeNoteId == id) > 0;
         }
     }
 }
