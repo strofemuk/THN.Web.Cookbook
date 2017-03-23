@@ -76,7 +76,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                     $scope.currentRecipe.notes = message.data.notes;
                 },
                 function (error) {
-                    $scope.error = "There was an error fetching a recipe.  Error: " + data.message;
+                    $scope.error = "There was an error fetching a recipe.  Error: " + error.message;
                 }
             );
         } else {
@@ -112,7 +112,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                 $scope.getAll();
             },
             function (error) {
-                $scope.error = "There was an error when saving the recipe. Error: " + error.message;
+                $scope.error = "There was an error when saving the recipeddd. Error: " + error.data.message;
                 $('#recipeDialog').modal('hide');
             }
         );
@@ -139,7 +139,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                 $scope.getAll();
             },
             function (error) {
-                $scope.error = "There was an error when updating the recipe. Error: " + error.message;
+                $scope.error = "There was an error when updating the recipe. Error: " + error.data.message;
                 $('#recipeDialog').modal('hide');
             }
         );
@@ -153,7 +153,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                     $scope.getAll();
                 },
                 function (error) {
-                    $scope.error = "There was an error while deleting a recipe! Error: " + error.message;
+                    $scope.error = "There was an error while deleting a recipe! Error: " + error.data.message;
                 }
             );
         };
@@ -179,13 +179,13 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                         $scope.currentRecipe.notes = message.data.notes;
                     },
                     function (error) {
-                        $scope.error = "There was an error repopulating notes after adding the note. Error: " + error.message;
+                        $scope.error = "There was an error repopulating notes after adding the note. Error: " + error.data.message;
                         $('#recipeDialog').modal('hide');
                     }
                 );
             },
             function (error) {
-                $scope.error = "There was an error adding the note. Error: " + error.message;
+                $scope.error = "There was an error adding the note. Error: " + error.data.message;
                 $('#recipeDialog').modal('hide');
             }
         );
@@ -204,7 +204,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                 $scope.printMode = true;
             },
             function (error) {
-                $scope.error = "There was an error fetching a recipe.  Error: " + error.message;
+                $scope.error = "There was an error fetching a recipe.  Error: " + error.data.message;
             }
         );
     }
