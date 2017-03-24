@@ -145,9 +145,14 @@
     <Compile Include="Migrations\201703241332598_Concurrency.Designer.cs">
       <DependentUpon>201703241332598_Concurrency.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703241448140_NoteTypeEnum.cs" />
+    <Compile Include="Migrations\201703241448140_NoteTypeEnum.Designer.cs">
+      <DependentUpon>201703241448140_NoteTypeEnum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CookbookContext.cs" />
     <Compile Include="Models\Recipe.cs" />
+    <Compile Include="Models\RecipeListItem.cs" />
     <Compile Include="Models\RecipeNote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -981,6 +986,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703241332598_Concurrency.resx">
       <DependentUpon>201703241332598_Concurrency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703241448140_NoteTypeEnum.resx">
+      <DependentUpon>201703241448140_NoteTypeEnum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

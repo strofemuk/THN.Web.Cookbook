@@ -3,6 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace THN.Web.Cookbook.Models
 {
+    public enum NoteTypeEnum
+    {
+        NoteOnly=0,
+        DoAgain=1,
+        NotDoAgain=2
+    }
+
     public class RecipeNote
     {
         public int RecipeNoteId { get; set; }
@@ -12,9 +19,7 @@ namespace THN.Web.Cookbook.Models
 
         public string Text { get; set; }
 
-        public bool NoteOnly { get; set; }
-
-        public bool DoAgain { get; set; }
+        public NoteTypeEnum NoteType { get; set; }
 
         public int RecipeFk { get; set; }
     }

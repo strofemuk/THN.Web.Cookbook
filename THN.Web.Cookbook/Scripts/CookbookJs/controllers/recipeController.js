@@ -24,8 +24,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
     };
 
     $scope.currentNote = {
-        noteOnly: false,
-        doAgain: false,
+        noteType: 0,
         text: '',
         date: new Date().toDateString(),
         recipeFk: 0
@@ -166,8 +165,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
             function (message) {
                 $scope.currentNote.date = new Date().toDateString();
                 $scope.currentNote.text = '';
-                $scope.noteOnly = false;
-                $scope.doAgain = false;
+                $scope.noteType = 0;
                 var promise = recipeService.getRecipe($scope.currentRecipe.recipeId);
                 promise.then(
                     function (message) {
