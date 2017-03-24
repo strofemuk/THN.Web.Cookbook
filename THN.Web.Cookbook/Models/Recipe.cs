@@ -29,6 +29,9 @@ namespace THN.Web.Cookbook.Models
         public string Instructions { get; set; }
 
         public virtual ICollection<RecipeNote> Notes { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 
 

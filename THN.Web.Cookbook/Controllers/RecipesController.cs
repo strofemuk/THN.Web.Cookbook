@@ -27,6 +27,7 @@ namespace THN.Web.Cookbook.Controllers
         public IHttpActionResult GetRecipe(int id)
         {
             Recipe recipe = db.Recipes.Where(n => n.RecipeId == id).FirstOrDefault();
+            //Using explicit loading.
             recipe.Notes = db.RecipeNotes.Where(n => n.RecipeFk == id).ToList();          
 
             if (recipe == null)

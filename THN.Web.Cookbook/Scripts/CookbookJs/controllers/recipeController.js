@@ -14,7 +14,8 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
     $scope.error = '';
 
     $scope.currentRecipe = {
-        recipeId : 0,
+        rowVersion: '',
+        recipeId: 0,
         title: '',
         category: -1,
         source: '',
@@ -68,6 +69,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
             var promise = recipeService.getRecipe(recipeToShow.recipeId);
             promise.then(
                 function (message) {
+                    $scope.currentRecipe.rowVersion = message.data.rowVersion;
                     $scope.currentRecipe.recipeId = message.data.recipeId;
                     $scope.currentRecipe.title = message.data.title;
                     $scope.currentRecipe.source = message.data.source;
