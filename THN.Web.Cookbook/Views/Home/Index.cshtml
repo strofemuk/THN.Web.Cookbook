@@ -1,213 +1,42 @@
-﻿
-<link href="Content/bootstrap.min.css" rel="stylesheet" />
-<script src="Scripts/jquery-1.10.2.min.js"></script>   <!--Needed for bootstrap.min.js-->
-<script src="Scripts/bootstrap.min.js"></script> <!-- Needed ot make modal dialog work -->
-<script src="Scripts/angular.min.js"></script>
-<script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>  <!-- Needed to make modal dialog work -->
-<script src="Scripts/CookbookJs/controllers/recipeController.js"></script>
-<script src="Scripts/CookbookJs/services/recipeService.js"></script>
+﻿@{
+    ViewBag.Title = "Home Page";
+}
 
-<style>
-    .iex::-ms-clear {
-        width: 0;
-        height: 0;
-    }
-
-    a, u {
-        text-decoration: none !important;
-    }
-</style>
-
-<div class="container">
-    <div ng-app="recipeModule" ng-controller="recipeController" class="container" ng-cloak>
-        <h2>Family Cookbook</h2>
-        <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
-            {{error}}
-            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
-        </div>
-
-        <div ng-hide="printMode">
-            <!--The following is the code for the recipe dialog-->
-            <div class="modal fade" id="recipeDialog" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                            <h4 class="modal-title" ng-show="addMode">Add Recipe</h4>
-                            <h4 class="modal-title" ng-show="editMode">Edit Recipe</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" role="form" name="recipeForm">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <input id="title" type="text" ng-model="currentRecipe.title" class="form-control" placeholder="Recipe title" required title="Enter recipe title" />
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-xs-5">
-                                        <select id="category" class="form-control" ng-options="c.value as c.label for c in categories" ng-model="currentRecipe.category"></select>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <input id="source" type="text" class="form-control" ng-model="currentRecipe.source" placeholder="Source of this recipe" />
-                                    </div>
-                                </div>
-
-                                <div ng-show="editMode">
-                                    <ul class="nav nav-tabs" data-tabs="tabs">
-                                        <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
-                                        <li><a href="#notes" data-toggle="tab">Notes</a></li>
-                                    </ul>
-                                    <br />
-                                </div>
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="details">
-                                        <div class="form-group">
-                                            <div class="col-xs-12">
-                                                <textarea id="instructions" class="form-control" rows="10" cols="20" placeholder="Instructions" ng-model="currentRecipe.instructions"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane" id="notes" style="overflow-y:scroll;height:400px;">
-                                        <div class="container col-xs-12">
-                                            <div class="row">
-                                                <div class="col-xs-3"><b>DATE</b></div>
-                                                <div class="col-xs-6"><b>NOTE</b></div>
-                                                <div class="col-xs-3"><b>AGAIN?</b></div>
-                                            </div>
-                                            <hr />
-                                            <div class="row">
-                                                <div class="col-xs-3">{{currentNote.date | date}}</div>
-                                                <div class="col-xs-6"><textarea class="form-control" rows="5" ng-model="currentNote.text" placeholder="Note text"></textarea></div>
-                                                <div class="col-xs-3 btn-group">
-                                                    <button type="button" class="btn btn-default" ng-click="addNote();">Save</button>
-                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="glyphicon glyphicon-thumbs-up" ng-show="currentNote.doAgain && !currentNote.noteOnly"></span>
-                                                        <span class="glyphicon glyphicon-thumbs-down" ng-show="!currentNote.doAgain && !currentNote.noteOnly"></span>
-                                                        <span class="glyphicon glyphicon-pencil" ng-show="currentNote.noteOnly"></span>
-                                                        <span class="caret"></span>
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a ng-click="currentNote.doAgain = true; currentNote.noteOnly = false;"><span class="glyphicon glyphicon-thumbs-up"></span> You would do this again.</a></li>
-                                                        <li><a ng-click="currentNote.doAgain = false; currentNote.noteOnly = false;"><span class="glyphicon glyphicon-thumbs-down"></span> You would not do this again.</a></li>
-                                                        <li><a ng-click="currentNote.doAgain = false; currentNote.noteOnly = true;"><span class="glyphicon glyphicon-pencil"></span> This is just a note.</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <hr />
-                                            <div class="row" ng-repeat="note in currentRecipe.notes | orderBy:date:true">
-                                                <div class="col-xs-3">{{note.date | date}}</div>
-                                                <div class="col-xs-6"><textarea class="form-control" rows="5" readonly ng-model="note.text"></textarea></div>
-                                                <div class="col-xs-3">
-                                                    <span class="label label-success" ng-show="note.doAgain">
-                                                        <span class="glyphicon glyphicon-thumbs-up"></span>
-                                                    </span>
-                                                    <span class="label label-danger" ng-hide="note.doAgain">
-                                                        <span class="glyphicon glyphicon-thumbs-down"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" ng-show="addMode" ng-click="saveNewRecipe();" type="button">Save</button>
-                            <button class="btn btn-primary" ng-show="editMode" ng-click="updateRecipe();" type="button">Update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- The following is the list and search box with buttons and sorting -->
-            <div id="mainScreen">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-                            <input type="text" class="form-control iex" placeholder="Search recipes..." ng-model="searchTitle" />
-                            <div class="input-group-addon"><a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="addRecipe();"></a></div>
-                        </div>
-                    </div>
-                </form>
-
-
-                <table class="table table-striped table-bordered table-condensed">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th>
-                                <a href="javascript:;" ng-click="sortType='title'; sortAsc = !sortAsc;" aria->
-                                    <span ng-show="sortType=='title' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
-                                    <span ng-show="sortType=='title' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
-                                    Title
-                                </a>
-                            </th>
-                            <th>
-                                <a href="javascript:;" ng-click="sortType='category'; sortAsc = !sortAsc;">
-                                    <span ng-show="sortType=='category' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
-                                    <span ng-show="sortType=='category' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
-                                    Category
-                                </a>
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tr ng-repeat="recipe in recipes | orderBy:sortType:sortAsc | filter:searchTitle">
-                        <td>{{ recipe.title }}</td>
-                        <td>{{ recipe.catString }}</td>
-                        <td>
-                            <a href="javascript:;" ng-click="editRecipe(recipe);"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-                            <a href="javascript:;" ng-click="printRecipe(recipe);"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
-                            <a href="javascript:;" ng-click="deleteRecipe(recipe.recipeId);"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
-                            <!--<span class="glyphicon glyphicon-send"></span>-->
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <!-- Display just the recipe in a "printable" display with notes included-->
-        <div ng-show="printMode">
-            <div class="container col-xs-12">
-                <div class="row col-xs-12">
-                    <div class="col-xs-1">
-                        <h1><a ng-click="printMode = false;" class="btn btn-default"><span class="glyphicon glyphicon-backward"></span></a></h1>
-                    </div>
-                    <div class="col-xs-11">
-                        <h1>{{currentRecipe.title}}</h1>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-xs-6"><h3>Category: {{categories[currentRecipe.category+1].label}}</h3></div>
-                        <div class="col-xs-6"><h3>Source: {{currentRecipe.source}}</h3></div>
-                    </div>
-                </div>
-                <hr />
-                <div class="row col-xs-12">
-                    <div class="col-xs-6">
-                        <textarea ng-bind="currentRecipe.instructions" class="container-fluid col-xs-6" rows="40" style="border:none;" readonly></textarea>
-                        <!--<div style="word-wrap:break-word;display:inline;">{{currentRecipe.instructions}}</div>-->
-                    </div>
-                    <div class="col-xs-6" style="background-color:#c3c3c3 ;">
-                        <div class="row text-center"><h4>N - O - T - E - S</h4></div><hr />
-                        <div class="row" ng-repeat="note in currentRecipe.notes | orderBy:date:true">
-                            <div class="col-xs-3">{{note.date | date}}</div>
-                            <div class="col-xs-3">
-                                <!--<textarea ng-bind="note.text" rows="5" style="border:none;background-color:#c3c3c3;min-width:100%" readonly></textarea>-->
-                                <div style="word-wrap:break-word;display:inline;" contenteditable="true" ng-bind="note.text"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
+<div class="jumbotron">
+    <h1>THN.v5</h1>
+    <p class="lead">Welcome to the Trofemuk Household Network (THN)</p>
+    <p><a href="#" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-
-
+<div class="row">
+    <div class="col-md-4">
+        <h2>History</h2>
+        <p>
+            Originally, THN was conceived as a college project investigating home automation.  
+            Built with Visual Basic and using X10 hardware, the client/server system allowed 
+            home automation control from any computer on the network.  Eventually, other apps 
+            were written including a calendar, an address book, and a cookbook.
+        </p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Current</h2>
+        <p>
+            THN is no longer in use.  The system has been surpassed by existing free services
+            such as Google Calendar and GMail.  What remains is the cookbook as there is as yet
+            no good replacement.  I also use the code as a way of investigating new technologies
+            in my choosen profession.        
+        </p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Details</h2>
+        <p>
+            The cookbook is implemented using a C# Web API with an AngularJS front end.
+            The system uses Entity Framework following the code-first pattern.  The cookbook
+            is hosted on an ASP.NET MVC page as a AngularJS SPA themed with Bootstrap. I plan 
+            to implement Android and possibly IOS clients as well.
+        </p>
+        <p><a class="btn btn-default" href="#">Learn more &raquo;</a></p>
+    </div>
+</div>

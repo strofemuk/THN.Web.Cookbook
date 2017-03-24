@@ -14,5 +14,10 @@ namespace THN.Web.Cookbook.Controllers
 
             return View();
         }
+
+        public ActionResult Cookbook()
+        {
+            return View();
+        }
     }
 }
