@@ -108,7 +108,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" ng-show="addMode" ng-click="saveNewRecipe();" type="button">Save</button>
+                            <button class="btn btn-primary" ng-show="addMode" ng-click="createRecipe();" type="button">Save</button>
                             <button class="btn btn-primary" ng-show="editMode" ng-click="updateRecipe();" type="button">Update</button>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                         <div class="input-group">
                             <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
                             <input type="text" class="form-control iex" placeholder="Search recipes..." ng-model="searchTitle" />
-                            <div class="input-group-addon"><a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="addRecipe();"></a></div>
+                            <div class="input-group-addon"><a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="showAddRecipe();"></a></div>
                         </div>
                     </div>
                 </form>
@@ -152,8 +152,8 @@
                         <td>{{ recipe.title }}</td>
                         <td>{{ recipe.catString }}</td>
                         <td>
-                            <a href="javascript:;" ng-click="editRecipe(recipe);"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-                            <a href="javascript:;" ng-click="printRecipe(recipe);"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
+                            <a href="javascript:;" ng-click="showEditRecipe(recipe);"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
+                            <a href="javascript:;" ng-click="showPrintRecipe(recipe);"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
                             <a href="javascript:;" ng-click="deleteRecipe(recipe.recipeId);"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
                             <!--<span class="glyphicon glyphicon-send"></span>-->
                         </td>

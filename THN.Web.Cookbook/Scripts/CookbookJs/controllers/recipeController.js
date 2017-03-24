@@ -41,8 +41,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         { label: 'Misc.', value: 5 }
     ];
     
-    //get all recipes and assign them to $scope.recipes
-    $scope.getAll = function () {
+    $scope.getRecipeList = function () {
         var promise = recipeService.getRecipes();
         promise.then(
             function (message) {
@@ -62,25 +61,9 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         );
     };
 
-    //post recipe to web api service 
-    
-    $scope.displayRecipe = function (recipeToShow) {
+    $scope.populateRecipeForm = function (recipeToShow) {
         if (recipeToShow) {
-            var promise = recipeService.getRecipe(recipeToShow.recipeId);
-            promise.then(
-                function (message) {
-                    $scope.currentRecipe.rowVersion = message.data.rowVersion;
-                    $scope.currentRecipe.recipeId = message.data.recipeId;
-                    $scope.currentRecipe.title = message.data.title;
-                    $scope.currentRecipe.source = message.data.source;
-                    $scope.currentRecipe.category = message.data.category;
-                    $scope.currentRecipe.instructions = message.data.instructions;
-                    $scope.currentRecipe.notes = message.data.notes;
-                },
-                function (error) {
-                    $scope.error = "There was an error fetching a recipe.  Error: " + error.message;
-                }
-            );
+            $scope.readRecipe(recipeToShow.recipeId);
         } else {
             $scope.currentRecipe.recipeId = '';
             $scope.currentRecipe.title = '';
@@ -93,13 +76,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         $('#recipeDialog').modal('show');
     };
 
-    $scope.addRecipe = function () {
-        $scope.addMode = true;
-        $scope.editMode = false;
-        $scope.displayRecipe();
-    };
-
-    $scope.saveNewRecipe = function () {
+    $scope.createRecipe = function () {
         //The post function doesn't need Notes or RecipeId.
         //In fact including RecipeId causes and a null error.
         //So, we translate currentRecipe into a smaller newRecipe.
@@ -120,7 +97,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                     source: '',
                     instructions: ''
                 };
-                $scope.getAll();
+                $scope.getRecipeList();
             },
             function (error) {
                 $scope.error = "There was an error when saving the recipeddd. Error: " + error.data.message;
@@ -129,10 +106,22 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         );
     };
 
-    $scope.editRecipe = function (recipe) {
-        $scope.addMode = false;
-        $scope.editMode = true;
-        $scope.displayRecipe(recipe);
+    $scope.readRecipe = function(recipeId) {
+        var promise = recipeService.getRecipe(recipeId);
+        promise.then(
+            function (message) {
+                $scope.currentRecipe.rowVersion = message.data.rowVersion;
+                $scope.currentRecipe.recipeId = message.data.recipeId;
+                $scope.currentRecipe.title = message.data.title;
+                $scope.currentRecipe.source = message.data.source;
+                $scope.currentRecipe.category = message.data.category;
+                $scope.currentRecipe.instructions = message.data.instructions;
+                $scope.currentRecipe.notes = message.data.notes;
+            },
+            function (error) {
+                $scope.error = "There was an error fetching a recipe.  Error: " + error.message;
+            }
+        );
     };
 
     $scope.updateRecipe = function () {
@@ -147,7 +136,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                     source: '',
                     instructions: ''
                 };
-                $scope.getAll();
+                $scope.getRecipeList();
             },
             function (error) {
                 $scope.error = "There was an error when updating the recipe. Error: " + error.data.message;
@@ -161,7 +150,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
             var promise = recipeService.deleteRecipe(id)
             promise.then(
                 function (message) {
-                    $scope.getAll();
+                    $scope.getRecipeList();
                 },
                 function (error) {
                     $scope.error = "There was an error while deleting a recipe! Error: " + error.data.message;
@@ -202,7 +191,19 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         );
     }
 
-    $scope.printRecipe = function (recipeToPrint) {
+    $scope.showAddRecipe = function () {
+        $scope.addMode = true;
+        $scope.editMode = false;
+        $scope.displayRecipe();
+    };
+
+    $scope.showEditRecipe = function (recipe) {
+        $scope.addMode = false;
+        $scope.editMode = true;
+        $scope.populateRecipeForm(recipe);
+    };
+
+    $scope.showPrintRecipe = function (recipeToPrint) {
         var promise = recipeService.getRecipe(recipeToPrint.recipeId)
         promise.then(
             function (message) {
@@ -224,7 +225,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
         return ($scope.editMode || $scope.addMode);
     }
 
-    $scope.getAll();
+    $scope.getRecipeList();
 
 }]);
 
