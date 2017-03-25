@@ -55,7 +55,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
                 };
             },
             function (error) {
-                $scope.error = "There was an error while loading recipes! Error: " + error.message;
+                $scope.error = "There was an error while loading recipes! Error: " + error.data.message;
             }
         );
     };

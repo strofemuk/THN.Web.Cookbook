@@ -75,16 +75,16 @@
                                                 <div class="col-xs-3 btn-group">
                                                     <button type="button" class="btn btn-default" ng-click="addNote();">Save</button>
                                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="glyphicon glyphicon-thumbs-up" ng-show="currentNote.doAgain && !currentNote.noteOnly"></span>
-                                                        <span class="glyphicon glyphicon-thumbs-down" ng-show="!currentNote.doAgain && !currentNote.noteOnly"></span>
-                                                        <span class="glyphicon glyphicon-pencil" ng-show="currentNote.noteOnly"></span>
+                                                        <span class="glyphicon glyphicon-thumbs-up" ng-show="currentNote.noteType==1"></span>
+                                                        <span class="glyphicon glyphicon-thumbs-down" ng-show="!currentNote.noteType==2"></span>
+                                                        <span class="glyphicon glyphicon-pencil" ng-show="currentNote.noteType==3"></span>
                                                         <span class="caret"></span>
                                                         <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a ng-click="currentNote.doAgain = true; currentNote.noteOnly = false;"><span class="glyphicon glyphicon-thumbs-up"></span> You would do this again.</a></li>
-                                                        <li><a ng-click="currentNote.doAgain = false; currentNote.noteOnly = false;"><span class="glyphicon glyphicon-thumbs-down"></span> You would not do this again.</a></li>
-                                                        <li><a ng-click="currentNote.doAgain = false; currentNote.noteOnly = true;"><span class="glyphicon glyphicon-pencil"></span> This is just a note.</a></li>
+                                                        <li><a ng-click="currentNote.noteType=1;"><span class="glyphicon glyphicon-thumbs-up"></span> You would do this again.</a></li>
+                                                        <li><a ng-click="currentNote.noteType=2;"><span class="glyphicon glyphicon-thumbs-down"></span> You would not do this again.</a></li>
+                                                        <li><a ng-click="currentNote.noteType=0;"><span class="glyphicon glyphicon-pencil"></span> This is just a note.</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -93,10 +93,10 @@
                                                 <div class="col-xs-3">{{note.date | date}}</div>
                                                 <div class="col-xs-6"><textarea class="form-control" rows="5" readonly ng-model="note.text"></textarea></div>
                                                 <div class="col-xs-3">
-                                                    <span class="label label-success" ng-show="note.doAgain">
+                                                    <span class="label label-success" ng-show="note.noteType==1">
                                                         <span class="glyphicon glyphicon-thumbs-up"></span>
                                                     </span>
-                                                    <span class="label label-danger" ng-hide="note.doAgain">
+                                                    <span class="label label-danger" ng-hide="note.noteType==1">
                                                         <span class="glyphicon glyphicon-thumbs-down"></span>
                                                     </span>
                                                 </div>
