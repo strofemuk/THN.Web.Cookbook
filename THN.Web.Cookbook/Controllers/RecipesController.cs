@@ -25,7 +25,7 @@ namespace THN.Web.Cookbook.Controllers
         }
 
         // GET: api/Recipes
-        public IQueryable<Recipe> GetRecipes()
+        public IQueryable<RecipeListViewModel> GetRecipes()
         {
             return db.Recipes;
         }

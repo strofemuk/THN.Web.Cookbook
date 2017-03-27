@@ -15,16 +15,9 @@ namespace THN.Web.Cookbook.Models
         Misc
     }
 
-    public class Recipe
+    public class Recipe : RecipeListViewModel
     {
-        public int RecipeId { get; set; }
-
-        [Required]
-        public string Title { get; set; }
-
         public string Source { get; set; }
-
-        public CategoryEnum Category { get; set; }
 
         public string Instructions { get; set; }
 
