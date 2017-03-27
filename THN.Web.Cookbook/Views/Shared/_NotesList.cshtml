@@ -1,0 +1,44 @@
+﻿@model IEnumerable<THN.Web.Cookbook.Models.RecipeNote>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Notes</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoteType)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+        <td>
+            @foreach (var value in EnumHelper<NoteTypeEnum>.GetValues(NoteTypeEnum.NoteOnly))
+            {
+                if (value == item.NoteType)
+                {
+                    var description = EnumHelper<NoteTypeEnum>.GetDisplayValue(value);
+                    @Html.DisplayFor(e => description);
+                    break;
+                }
+            }
+        </td>
+    </tr>
+    }
+</table>

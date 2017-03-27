@@ -1,4 +1,4 @@
-﻿@model IEnumerable<THN.Web.Cookbook.Models.Recipe>
+﻿@model IEnumerable<THN.Web.Cookbook.Models.RecipeListViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -13,12 +13,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Source)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Instructions)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
         <th>
@@ -30,16 +24,18 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Source)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Instructions)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Category)
+            @foreach(var value in EnumHelper<CategoryEnum>.GetValues(CategoryEnum.Misc))
+            {
+                if (value == item.Category)
+                {
+                    var description = EnumHelper<CategoryEnum>.GetDisplayValue(value);
+                    @Html.DisplayFor(e => description);
+                    break;
+                }
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RecipeId }) |

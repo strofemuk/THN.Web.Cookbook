@@ -192,7 +192,7 @@ app.controller('recipeController', ['$scope', 'recipeService', function ($scope,
     $scope.showAddRecipe = function () {
         $scope.addMode = true;
         $scope.editMode = false;
-        $scope.displayRecipe();
+        $scope.populateRecipeForm();
     };
 
     $scope.showEditRecipe = function (recipe) {

@@ -43,7 +43,7 @@ namespace THN.Web.Cookbook.Migrations
                         RecipeFk=1,
                         Date=DateTime.Now,
                         Text="Very tasty.",
-                        NoteType = Models.NoteTypeEnum.DoAgain
+                        NoteType = NoteTypeEnum.DoAgain
                     }
                 );
 

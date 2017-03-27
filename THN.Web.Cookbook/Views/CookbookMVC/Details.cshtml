@@ -28,14 +28,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RowVersion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RowVersion)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
 
@@ -52,6 +44,9 @@
         </dd>
 
     </dl>
+</div>
+<div>
+    @Html.Partial(@"~\Views\Shared\_NotesList.cshtml", Model.Notes)
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.RecipeId }) |

@@ -28,6 +28,7 @@ namespace THN.Web.Cookbook.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Recipe recipe = db.Recipes.Find(id);
+            recipe.Notes = db.RecipeNotes.Where(n => n.RecipeFk == id).ToList();
             if (recipe == null)
             {
                 return HttpNotFound();

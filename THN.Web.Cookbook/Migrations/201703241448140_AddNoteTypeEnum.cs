@@ -3,7 +3,7 @@ namespace THN.Web.Cookbook.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NoteTypeEnum : DbMigration
+    public partial class AddNoteTypeEnum : DbMigration
     {
         public override void Up()
         {
