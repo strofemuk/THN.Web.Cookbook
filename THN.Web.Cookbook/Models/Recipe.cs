@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace THN.Web.Cookbook.Models
 {
@@ -23,6 +24,7 @@ namespace THN.Web.Cookbook.Models
 
         public virtual ICollection<RecipeNote> Notes { get; set; }
 
+        [HiddenInput(DisplayValue=false)]
         [Timestamp]
         public byte[] RowVersion { get; set; }
     }

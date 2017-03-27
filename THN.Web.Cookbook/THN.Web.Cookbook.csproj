@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CookbookMVCController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -977,6 +978,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\CookbookMVC\Create.cshtml" />
+    <Content Include="Views\CookbookMVC\Delete.cshtml" />
+    <Content Include="Views\CookbookMVC\Details.cshtml" />
+    <Content Include="Views\CookbookMVC\Edit.cshtml" />
+    <Content Include="Views\CookbookMVC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -17,6 +17,7 @@ namespace THN.Web.Cookbook.Models
     
         public CookbookContext() : base("name=CookbookContext")
         {
+
         }
 
         public virtual System.Data.Entity.IDbSet<THN.Web.Cookbook.Models.Recipe> Recipes { get; set; }
