@@ -14,7 +14,15 @@ namespace THN.Web.Cookbook.Controllers
 {
     public class RecipesController : ApiController
     {
-        private CookbookContext db = new CookbookContext();
+        private CookbookContext db;
+
+        public RecipesController() : this(new CookbookContext())
+        { }
+
+        public RecipesController(CookbookContext context)
+        {
+            db = context;
+        }
 
         // GET: api/Recipes
         public IQueryable<Recipe> GetRecipes()

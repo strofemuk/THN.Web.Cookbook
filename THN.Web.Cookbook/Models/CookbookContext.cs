@@ -19,9 +19,9 @@ namespace THN.Web.Cookbook.Models
         {
         }
 
-        public System.Data.Entity.DbSet<THN.Web.Cookbook.Models.Recipe> Recipes { get; set; }
+        public virtual System.Data.Entity.IDbSet<THN.Web.Cookbook.Models.Recipe> Recipes { get; set; }
 
-        public System.Data.Entity.DbSet<THN.Web.Cookbook.Models.RecipeNote> RecipeNotes { get; set; }
+        public virtual System.Data.Entity.IDbSet<THN.Web.Cookbook.Models.RecipeNote> RecipeNotes { get; set; }
     
     }
 }
