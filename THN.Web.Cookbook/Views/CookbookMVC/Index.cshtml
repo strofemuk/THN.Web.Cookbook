@@ -10,13 +10,20 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@using (Html.BeginForm("Index", "CoockbookMVC", FormMethod.Get))
+{
+    <p>
+        Find: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search"/>
+    </p>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.ActionLink("Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Category)
+            @Html.ActionLink("Category","Index", new { sortOrder = ViewBag.CategorySortParm, currentFilter = ViewBag.CurrentFilter})
         </th>
         <th></th>
     </tr>

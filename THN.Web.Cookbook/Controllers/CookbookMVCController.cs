@@ -15,9 +15,38 @@ namespace THN.Web.Cookbook.Controllers
         private CookbookContext db = new CookbookContext();
 
         // GET: CookbookMVC
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString)
         {
-            return View(db.Recipes.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.CategorySortParm = sortOrder == "category" ? "categorgy_desc" : "category";
+
+            ViewBag.CurrentFilter = searchString;
+
+            var recipes = from r in db.Recipes select r;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                recipes = recipes.Where(r => r.Title.Contains(searchString) || r.Category.ToString().Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    recipes = recipes.OrderByDescending(r => r.Title);
+                    break;
+                case "category":
+                    recipes = recipes.OrderBy(r => r.Category.ToString());
+                    break;
+                case "category_desc":
+                    recipes = recipes.OrderByDescending(r => r.Category.ToString());
+                    break;
+                default:
+                    recipes = recipes.OrderBy(r => r.Title);
+                    break;
+            }
+
+            return View(recipes);
         }
 
         // GET: CookbookMVC/Details/5
