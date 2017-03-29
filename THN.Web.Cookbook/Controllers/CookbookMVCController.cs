@@ -53,7 +53,7 @@ namespace THN.Web.Cookbook.Controllers
                     break;
             }
 
-            return View("Index",recipes);
+            return View("Index", recipes);
         }
 
         // GET: CookbookMVC/Details/5
@@ -85,7 +85,7 @@ namespace THN.Web.Cookbook.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "RecipeId,Source,Instructions,RowVersion,Title,Category")] Recipe recipe)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid )
             {
                 db.Recipes.Add(recipe);
                 db.SaveChanges();
@@ -107,7 +107,7 @@ namespace THN.Web.Cookbook.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View("Edit",recipe);
         }
 
         // POST: CookbookMVC/Edit/5
@@ -124,7 +124,7 @@ namespace THN.Web.Cookbook.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(recipe);
+            return View("Edit", recipe);
         }
 
         // GET: CookbookMVC/Delete/5

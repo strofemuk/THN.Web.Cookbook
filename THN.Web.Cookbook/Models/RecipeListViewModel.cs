@@ -10,7 +10,7 @@ namespace THN.Web.Cookbook.Models
     {
         public int RecipeId { get; set; }
 
-        [Required]
+        [Required(AllowEmptyStrings =false, ErrorMessage = "Title is required.")]
         public string Title { get; set; }
 
         public CategoryEnum Category { get; set; }

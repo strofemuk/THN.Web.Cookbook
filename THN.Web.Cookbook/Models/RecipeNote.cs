@@ -10,6 +10,7 @@ namespace THN.Web.Cookbook.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        [Required(AllowEmptyStrings =false,ErrorMessage="The note's text is required.")]
         public string Text { get; set; }
 
         public NoteTypeEnum NoteType { get; set; }

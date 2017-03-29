@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
 
 namespace THN.Web.Cookbook.Test
 {
@@ -12,7 +14,7 @@ namespace THN.Web.Cookbook.Test
     public class MVC : TestBase
     {
         [TestMethod]
-        public void Index_ExpectView()
+        public void Index_ExpectIndexViewWithData()
         {
             //Arrange
             Models.ICookbookContext context = AddTestData(new TestContext());
@@ -20,32 +22,19 @@ namespace THN.Web.Cookbook.Test
 
             //Act
             ViewResult result =(ViewResult)controller.Index(null, null, null);
-
-            //assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Index", result.ViewName);
-        }
-
-        [TestMethod]
-        public void Index_ExpectAllRecipes()
-        {
-            //arrange
-            Models.ICookbookContext context = AddTestData(new TestContext());
-            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController();
-
-            //act
-            var result = controller.Index(null, null, null);
-            var model = (IEnumerable<Models.Recipe>)((ViewResult)result).ViewData.Model;
+            IEnumerable<Models.Recipe> model = result.ViewData.Model as IEnumerable<Models.Recipe>;
 
             //assert
             Assert.IsNotNull(result);
             Assert.IsNotNull(model);
+            Assert.AreEqual("Index", result.ViewName);
             Assert.AreEqual(2, model.Count());
-
         }
 
+        #region Create testing
+
         [TestMethod]
-        public void Create_ExpectViewIfModelStateIsNotValid()
+        public void Create_ExpectCreateViewIfModelStateIsNotValid()
         {
             //Arrange
             Models.ICookbookContext context = AddTestData(new TestContext());
@@ -82,11 +71,10 @@ namespace THN.Web.Cookbook.Test
             //Assert
             IEnumerable<Models.Recipe> recipes = context.Recipes;
             Assert.IsTrue(recipes.Contains(testRecipe));
-
         }
 
         [TestMethod]
-        public void Create_ExpectViewOnRepositoryError()
+        public void Create_ExpectIndexViewIfModelStateIsValid()
         {
             //arrange
             Models.ICookbookContext context = AddTestData(new TestContext());
@@ -98,22 +86,190 @@ namespace THN.Web.Cookbook.Test
             };
 
             //act
-            var result = (ViewResult)controller.Create(testRecipe);
+            ActionResult result = controller.Create(testRecipe);
 
             //assert
-            Assert.AreEqual("Create", result.ViewName);
-            ModelState modelState = result.ViewData.ModelState[""];
-            Assert.IsNotNull(modelState);
-            Assert.IsTrue(modelState.Errors.Any());
-            Assert.AreEqual(new Exception(), modelState.Errors[0].Exception);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+
+        #endregion
+
+        #region Edit Testing
+
+        [TestMethod]
+        public void Edit_Get_ExpectEditView()
+        {
+            //Arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+
+            //act
+            ViewResult result = controller.Edit(1) as ViewResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Edit_Get_ExpectRecipe()
+        {
+            //Arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+
+            //act
+            ViewResult result = controller.Edit(1) as ViewResult;
+            Models.Recipe foundRecipe = result.Model as Models.Recipe;
+
+            //assert
+            //Test Recipe #1
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Test Recipe #1", foundRecipe.Title);
+        }
+
+        [TestMethod]
+        public void Edit_Get_ExpectBadRequestOnIdNull()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            int? id = null;
+
+            //act
+            HttpStatusCodeResult result = controller.Edit(id) as HttpStatusCodeResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Edit_Get_ExpectNotFound()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            int? id = 999999;
+
+            //act
+            HttpNotFoundResult result = controller.Edit(id) as HttpNotFoundResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual((int)HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Edit_Post_ExpectRecipeChanged()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            Models.Recipe editedRecipe;
+
+
+            //act
+            ViewResult result = controller.Edit(1) as ViewResult;
+            editedRecipe = result.Model as Models.Recipe;
+            editedRecipe.Title = "Edited";
+            controller.Edit(editedRecipe);
+            IEnumerable<Models.Recipe> recipes = context.Recipes;
+
+            //assert
+            Assert.IsTrue(recipes.Contains(editedRecipe));
+        }
+
+        [TestMethod]
+        public void Edit_Post_ExpectEditViewIfModelStateIsNotValid()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            controller.ModelState.AddModelError("", "mock error message");
+            Models.Recipe badRecipe = new Models.Recipe
+            {
+                RecipeId = 55,
+                Title = "Bad"
+            };
+
+            //act
+            ViewResult result = controller.Edit(badRecipe) as ViewResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Edit_Post_ExpectIndexViewIfModelStateIsValid()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            Models.Recipe badRecipe = new Models.Recipe
+            {
+                RecipeId = 1,
+                Title = "Good"
+            };
+
+            //act
+            ActionResult result = controller.Edit(badRecipe);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+
+        #endregion
+
+        #region Validation Testing
+        [TestMethod]
+        public void Validation_ExpectTitleRequired()
+        {
+            //arrange
+            Models.Recipe testRecipe = new Models.Recipe
+            {
+                RecipeId = 55,
+                Title=""
+            };
+
+            ValidationContext validatoinContext = new ValidationContext(testRecipe, null, null);
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+
+            bool result = Validator.TryValidateObject(testRecipe, validatoinContext, validationResults, true);
+
+
+            Assert.IsFalse(result);
+            Assert.AreEqual(validationResults[0].ErrorMessage, "Title is required.");
 
         }
 
         [TestMethod]
-        public void Create_ExpectTitleRequired()
+        public void Validation_ExpectNoteTextRequired()
         {
-            Assert.Fail();
+            //arrange
+            Models.RecipeNote testNote = new Models.RecipeNote
+            {
+                RecipeNoteId = 55,
+                Text = ""
+            };
+
+
+            ValidationContext validatoinContext = new ValidationContext(testNote, null, null);
+            List<ValidationResult> validationResults = new List<ValidationResult>();
+
+            bool result = Validator.TryValidateObject(testNote, validatoinContext, validationResults, true);
+
+
+            Assert.IsFalse(result);
+            Assert.AreEqual(validationResults[0].ErrorMessage, "The note's text is required.");
         }
-       
+        #endregion 
     }
 }
