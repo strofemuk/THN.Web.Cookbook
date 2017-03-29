@@ -12,7 +12,14 @@ namespace THN.Web.Cookbook.Controllers
 {
     public class CookbookMVCController : Controller
     {
-        private CookbookContext db = new CookbookContext();
+        private ICookbookContext db = new CookbookContext();
+
+        public CookbookMVCController() { }
+
+        public CookbookMVCController(ICookbookContext context)
+        {
+            db = context;
+        }
 
         // GET: CookbookMVC
         public ActionResult Index(string sortOrder, string currentFilter, string searchString)
@@ -46,7 +53,7 @@ namespace THN.Web.Cookbook.Controllers
                     break;
             }
 
-            return View(recipes);
+            return View("Index",recipes);
         }
 
         // GET: CookbookMVC/Details/5
@@ -85,7 +92,7 @@ namespace THN.Web.Cookbook.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(recipe);
+            return View("Create",recipe);
         }
 
         // GET: CookbookMVC/Edit/5
@@ -112,7 +119,8 @@ namespace THN.Web.Cookbook.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recipe).State = EntityState.Modified;
+                //db.Entry(recipe).State = EntityState.Modified;
+                db.SetModified(typeof(Recipe));
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
