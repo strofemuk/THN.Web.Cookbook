@@ -70,7 +70,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MocContext.cs" />
+    <Compile Include="TestContext.cs" />
+    <Compile Include="TestDbSet.cs" />
+    <Compile Include="TestNotesDbSet.cs" />
+    <Compile Include="TestRecipeDbSet.cs" />
     <Compile Include="WebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

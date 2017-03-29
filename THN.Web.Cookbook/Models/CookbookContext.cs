@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace THN.Web.Cookbook.Models
 {
-    public class CookbookContext : DbContext
+    public class CookbookContext : DbContext, ICookbookContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -20,9 +16,18 @@ namespace THN.Web.Cookbook.Models
 
         }
 
-        public virtual System.Data.Entity.IDbSet<THN.Web.Cookbook.Models.Recipe> Recipes { get; set; }
+        public DbSet<THN.Web.Cookbook.Models.Recipe> Recipes { get; set; }
 
-        public virtual System.Data.Entity.IDbSet<THN.Web.Cookbook.Models.RecipeNote> RecipeNotes { get; set; }
-    
+        public DbSet<THN.Web.Cookbook.Models.RecipeNote> RecipeNotes { get; set; }
+
+        public void SetModified(object entity)
+        {
+            Entry(entity).State = EntityState.Modified;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
     }
 }

@@ -14,12 +14,12 @@ namespace THN.Web.Cookbook.Controllers
 {
     public class RecipesController : ApiController
     {
-        private CookbookContext db;
+        private ICookbookContext db = new CookbookContext();
 
-        public RecipesController() : this(new CookbookContext())
+        public RecipesController() 
         { }
 
-        public RecipesController(CookbookContext context)
+        public RecipesController(ICookbookContext context)
         {
             db = context;
         }
@@ -60,7 +60,7 @@ namespace THN.Web.Cookbook.Controllers
                 return BadRequest();
             }
 
-            db.Entry(recipe).State = EntityState.Modified;
+            db.SetModified(typeof(Models.Recipe));
 
             try
             {
