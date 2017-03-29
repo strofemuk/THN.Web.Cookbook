@@ -139,7 +139,7 @@ namespace THN.Web.Cookbook.Controllers
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View("Delete",recipe);
         }
 
         // POST: CookbookMVC/Delete/5

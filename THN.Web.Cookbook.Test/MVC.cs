@@ -228,6 +228,90 @@ namespace THN.Web.Cookbook.Test
 
         #endregion
 
+        #region Delete testing
+
+        [TestMethod]
+        public void Delete_Get_ExpectNotFound()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            int? id = 999999;
+
+            //act
+            HttpNotFoundResult result = controller.Delete(id) as HttpNotFoundResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual((int)HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Delete_Get_ExpectBadRequestWhenIdNull()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            int? id = null;
+
+            //act
+            HttpStatusCodeResult result = controller.Delete(id) as HttpStatusCodeResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void Delete_Get_ExpectDeleteView()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+
+            //act
+            ViewResult result = controller.Delete(1) as ViewResult;
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Delete", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Delete_Post_ExpectRedirectToIndex()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+
+            //act
+            ActionResult result = controller.DeleteConfirmed(1);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            RedirectToRouteResult routeResult = result as RedirectToRouteResult;
+            Assert.AreEqual(routeResult.RouteValues["action"], "Index");
+        }
+
+        [TestMethod]
+        public void Delete_Post_ExpectRecipeRemoved()
+        {
+            //arrange
+            Models.ICookbookContext context = AddTestData(new TestContext());
+            Controllers.CookbookMVCController controller = new Controllers.CookbookMVCController(context);
+            IEnumerable<Models.Recipe> recipes = context.Recipes;
+            Models.Recipe condemnedRecipe = recipes.Where(r => r.RecipeId == 1).FirstOrDefault();
+
+            //act
+            controller.DeleteConfirmed(condemnedRecipe.RecipeId);
+
+            //assert
+            Assert.IsTrue(!recipes.Contains(condemnedRecipe));
+        }
+
+        #endregion 
+
         #region Validation Testing
         [TestMethod]
         public void Validation_ExpectTitleRequired()
