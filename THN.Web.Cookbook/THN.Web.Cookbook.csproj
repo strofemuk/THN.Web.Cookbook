@@ -160,6 +160,10 @@
     <Compile Include="Migrations\201703271528156_RecipeListViewModel.Designer.cs">
       <DependentUpon>201703271528156_RecipeListViewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703312023347_TextRequired.cs" />
+    <Compile Include="Migrations\201703312023347_TextRequired.Designer.cs">
+      <DependentUpon>201703312023347_TextRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CookbookContext.cs" />
     <Compile Include="Models\ICookbookContext.cs" />
@@ -1010,6 +1014,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703271528156_RecipeListViewModel.resx">
       <DependentUpon>201703271528156_RecipeListViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703312023347_TextRequired.resx">
+      <DependentUpon>201703312023347_TextRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
