@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "THN.Web.Cookbook", "THN.Web.Cookbook\THN.Web.Cookbook.csproj", "{1F66AC25-FE53-41F2-B7F6-6EF1D05BDED8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "THN.Web.Cookbook.Test", "THN.Web.Cookbook.Test\THN.Web.Cookbook.Test.csproj", "{0285EA3D-466B-4A28-9FF5-7C5C5C788EB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{36BC9E35-FD6C-4828-B01D-2F2E2F98ADA8}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿var app = angular.module('recipeModule',['ui.bootstrap']);
+﻿var app = angular.module('CookbookJs',['ui.bootstrap']);
 
 app.controller('recipeController', ['$scope', 'recipeService', function ($scope, recipeService) {
 

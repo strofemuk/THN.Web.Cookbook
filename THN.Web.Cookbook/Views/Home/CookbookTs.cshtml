@@ -1,0 +1,38 @@
+﻿<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    .iex::-ms-clear {
+        width: 0;
+        height: 0;
+    }
+
+    a, u {
+        text-decoration: none !important;
+    }
+</style>
+
+<div class="container">
+    <div ng-app="CookbookTs" class="container" ng-cloak>
+        @*<h2>Family Cookbook</h2>*@
+        <div ng-show="scope.error" class="alert alert-danger alert-dismissable" role="alert">
+            {{error}}
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+        </div>
+
+        <div ng-view="">
+            
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-route.js")
+    @Scripts.Render("~/Scripts/angular-ui/ui-bootstrap.js")
+    @Scripts.Render("~/Scripts/CookbookTs/Models.js")
+    @Scripts.Render("~/Scripts/CookbookTs/Services.js")
+    @Scripts.Render("~/Scripts/CookbookTs/Controllers.js")
+    @Scripts.Render("~/Scripts/CookbookTs/CookbookTs.js")
+}
+

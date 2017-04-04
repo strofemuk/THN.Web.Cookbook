@@ -3,7 +3,7 @@
         createRecipe: function (recipe) {
             return $http.post('/api/Recipes/', recipe);
         },
-        getRecipes: function () {
+        getRecipes: function ()  {
             return $http.get('/api/Recipes/');
         },
         getRecipe: function(id) {
