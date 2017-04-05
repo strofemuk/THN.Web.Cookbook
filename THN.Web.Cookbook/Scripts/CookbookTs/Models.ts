@@ -2,8 +2,7 @@
     export class RecipeListItem {
         recipeId: number;
         title: string;
-        category: number;
-        catString: string;
+        category: string;
     }
 
     export class RecipeNote {

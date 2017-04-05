@@ -36,8 +36,8 @@ module CookbookTs.Services {
             if (fetchFromService) {
                 return getRecipesFromService();
             } else {
-                if (this.recipeListCache !== undefined) {
-                    return this.recipeListCache;
+                if (self.recipeListCache !== undefined) {
+                    return self.recipeListCache;
                 } else {
                     return getRecipesFromService();
                 }
@@ -48,8 +48,16 @@ module CookbookTs.Services {
 
                 self.http.get('/api/recipes/')
                     .then(function (result: any) {
-                        self.recipeListCache = result.data;
-                        deferred.resolve(result.data);
+                        //self.recipeListCache = result.data;
+                        self.recipeListCache = new Array<Models.RecipeListItem>();
+                        for (var item of result.data) {
+                            var listItem : Models.RecipeListItem
+                            listItem.title = item.title;
+                            listItem.recipeId= item.recipeId;
+                            listItem.category = CookbookTs.CatagoryHelper.GetString(item.category);
+                            self.recipeListCache.Push(listItem);
+                        }
+                        deferred.resolve(self.recipeListCache);
                     },
                     function (error) {
                         deferred.reject(error);

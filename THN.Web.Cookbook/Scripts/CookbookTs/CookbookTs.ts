@@ -30,7 +30,7 @@ module CookbookTs {
     Config.$inject = ['$routeProvider'];
 
     export class CatagoryHelper {
-        categories = [
+        static categories = [
             { label: 'Choose a category', value: -1 },
             { label: 'Bread', value: 0 },
             { label: 'Main Course', value: 1 },
@@ -40,7 +40,7 @@ module CookbookTs {
             { label: 'Misc.', value: 5 }
         ];
 
-        GetString = function (categoryNumber: number): string {
+        static GetString = function (categoryNumber: number): string {
             return this.categories[categoryNumber].label;
         }
     }
