@@ -14,10 +14,17 @@ namespace THN.Web.Cookbook
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Client Routing",
+                url: "Home/CookbookTs/{*.}",
+                defaults: new { controller = "Home", action = "CookbookTs"}
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }

@@ -2,7 +2,18 @@
     export class RecipeListItem {
         recipeId: number;
         title: string;
-        category: string;
+        category: number;
+        categoryText: string;
+    }
+
+    export class Recipe extends RecipeListItem {
+        rowVersion: string;
+        source: string;
+        instructions: string;
+    }
+
+    export class RecipeAndNotes extends Recipe {
+        notes: Array<RecipeNote>;
     }
 
     export class RecipeNote {
@@ -12,34 +23,35 @@
         recipeFk: number;
     }
 
-    export class Recipe extends RecipeListItem {
-        rowVersion: string;
-        source: string;
-        instructions: string;
-        notes: Array<RecipeNote>;
-    }
 
-    export interface RecipeListScope extends ng.IScope {
-        recipes: Array<RecipeListItem>;
-    }
-
-    export interface RecipeScope extends ng.IScope {
-        addMode: boolean;
-        editMode: boolean;
-        printMode: boolean;
-        showNotes: boolean;
-
-        searchTitle: '';
-        sortType: string;
+    export interface IRecipeListScope extends ng.IScope {
+        theRecipeList: Array<RecipeListItem>;
+        sortColumn: string;
         sortAsc: boolean;
+        searchString: string;
+    }
 
+    export interface IScopeWithRecipe extends ng.IScope {
+        recipe: Models.Recipe;
+    }
 
-        dialog: HTMLElement;
-        error: string;
+    export interface IAddRecipeScope extends IScopeWithRecipe {
+        categories: Array<any>;
+        saveRecipe: Function;
+    }
 
-        currentRecipe: Recipe;
-        currentNote: RecipeNote;
+    export interface IScopeWithRecipeAndNotes {
+        recipe: Models.RecipeAndNotes;
+    }
 
-        categories: Object;
+    export interface IEditRecipeScope extends IScopeWithRecipeAndNotes {
+        categories : Array<any>
+        updateRecipe: Function;
+        addNote: Function;
+        newNote: Models.RecipeNote;
+    }
+
+    export interface IRecipeRouteParams extends ng.route.IRouteParamsService {
+        id: string;
     }
 } 

@@ -56,7 +56,7 @@ namespace THN.Web.Cookbook.Controllers
                 return BadRequest();
             }
 
-            db.SetModified(typeof(Models.Recipe));
+            db.SetModified(recipe);
 
             try
             {

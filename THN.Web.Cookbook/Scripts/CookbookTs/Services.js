@@ -33,18 +33,19 @@ var CookbookTs;
                         var deferred = self.q.defer();
                         self.http.get('/api/recipes/')
                             .then(function (result) {
-                            //self.recipeListCache = result.data;
                             self.recipeListCache = new Array();
                             for (var _i = 0, _a = result.data; _i < _a.length; _i++) {
                                 var item = _a[_i];
                                 var listItem = {
                                     title: '',
                                     recipeId: 0,
-                                    category: ''
+                                    category: -1,
+                                    categoryText: ''
                                 };
                                 listItem.title = item.title;
                                 listItem.recipeId = item.recipeId;
-                                listItem.category = CookbookTs.CatagoryHelper.GetString(item.category);
+                                listItem.category = item.category;
+                                listItem.categoryText = CookbookTs.CatagoryHelper.GetString(item.category);
                                 self.recipeListCache.push(listItem);
                             }
                             deferred.resolve(self.recipeListCache);
@@ -63,7 +64,7 @@ var CookbookTs;
                     }, function (error) {
                         deferred.reject(error);
                     });
-                    return deferred;
+                    return deferred.promise;
                 };
                 this.updateRecipe = function (recipe) {
                     return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);

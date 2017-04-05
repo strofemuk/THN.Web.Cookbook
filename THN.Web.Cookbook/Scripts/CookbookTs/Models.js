@@ -13,12 +13,6 @@ var CookbookTs;
             return RecipeListItem;
         }());
         Models.RecipeListItem = RecipeListItem;
-        var RecipeNote = (function () {
-            function RecipeNote() {
-            }
-            return RecipeNote;
-        }());
-        Models.RecipeNote = RecipeNote;
         var Recipe = (function (_super) {
             __extends(Recipe, _super);
             function Recipe() {
@@ -27,6 +21,20 @@ var CookbookTs;
             return Recipe;
         }(RecipeListItem));
         Models.Recipe = Recipe;
+        var RecipeAndNotes = (function (_super) {
+            __extends(RecipeAndNotes, _super);
+            function RecipeAndNotes() {
+                _super.apply(this, arguments);
+            }
+            return RecipeAndNotes;
+        }(Recipe));
+        Models.RecipeAndNotes = RecipeAndNotes;
+        var RecipeNote = (function () {
+            function RecipeNote() {
+            }
+            return RecipeNote;
+        }());
+        Models.RecipeNote = RecipeNote;
     })(Models = CookbookTs.Models || (CookbookTs.Models = {}));
 })(CookbookTs || (CookbookTs = {}));
 //# sourceMappingURL=Models.js.map

@@ -4,8 +4,8 @@
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-                <input type="text" class="form-control iex" placeholder="Search recipes..." ng-model="searchTitle" />
-                <div class="input-group-addon"><a href="javascript:;" class="glyphicon glyphicon-plus" ng-click="showAddRecipe();"></a></div>
+                <input type="text" class="form-control iex" placeholder="Search recipes..." ng-model="searchString" />
+                <div class="input-group-addon"><a href="/Home/CookbookTs/add/" class="glyphicon glyphicon-plus"></a></div>
             </div>
         </div>
     </form>
@@ -15,29 +15,29 @@
         <thead class="thead-inverse">
             <tr>
                 <th>
-                    <a href="javascript:;" ng-click="sortType='title'; sortAsc = !sortAsc;" aria->
-                        <span ng-show="sortType=='title' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType=='title' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
+                    <a href="javascript:;" ng-click="sortColumn='title'; sortAsc = !sortAsc;" aria->
+                        <span ng-show="sortColumn=='title' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortColumn=='title' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
                         Title
                     </a>
                 </th>
                 <th>
-                    <a href="javascript:;" ng-click="sortType='category'; sortAsc = !sortAsc;">
-                        <span ng-show="sortType=='category' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType=='category' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
+                    <a href="javascript:;" ng-click="sortColumn='category'; sortAsc = !sortAsc;">
+                        <span ng-show="sortColumn=='category' && !sortAsc" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortColumn=='category' && sortAsc" class="glyphicon glyphicon-chevron-up"></span>
                         Category
                     </a>
                 </th>
                 <th></th>
             </tr>
         </thead>
-        <tr ng-repeat="recipe in recipes | orderBy:sortType:sortAsc | filter:searchTitle">
+        <tr ng-repeat="recipe in theRecipeList | orderBy:sortColumn:sortAsc | filter:searchString">
             <td>{{ recipe.title }}</td>
-            <td>{{ recipe.category }}</td>
+            <td>{{ recipe.categoryText }}</td>
             <td>
-                <a href="javascript:;" ng-click="showEditRecipe(recipe);"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-                <a href="javascript:;" ng-click="showPrintRecipe(recipe);"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
-                <a href="javascript:;" ng-click="deleteRecipe(recipe.recipeId);"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/edit/{{recipe.recipeId}}" ><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/print/" ><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/delete/" ><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
                 <!--<span class="glyphicon glyphicon-send"></span>-->
             </td>
         </tr>

@@ -19,17 +19,20 @@ var CookbookTs;
     }());
     CookbookTs.Routes = Routes;
     var Config = (function () {
-        function Config($routeProvider) {
+        function Config($routeProvider, $locationProvider) {
             $routeProvider
-                .when("/list", { templateUrl: "/Scripts/CookbookTs/views/RecipeList.html", controller: "CookbookTs.Controllers.ListController" })
-                .when("/add", { templateUrl: "/Scripts/CookbookTs/views/AddRecipe.html", controller: "AddRecipeController" })
-                .when("/edit/:id", { templateUrl: "/Scripts/CookbookTs/views/EditRecipe.html", controller: "EditRecipeController" })
-                .otherwise({ redirectTo: '/list' });
+                .when("/Home/CookbookTs", { templateUrl: "/Scripts/CookbookTs/views/RecipeList.html", controller: "CookbookTs.Controllers.ListController" })
+                .when("/Home/CookbookTs/add", { templateUrl: "/Scripts/CookbookTs/views/AddRecipe.html", controller: "CookbookTs.Controllers.AddRecipeController" })
+                .when("/Home/CookbookTs/edit/:id", { templateUrl: "/Scripts/CookbookTs/views/EditRecipe.html", controller: "CookbookTs.Controllers.EditRecipeController" });
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
         }
         return Config;
     }());
     CookbookTs.Config = Config;
-    Config.$inject = ['$routeProvider'];
+    Config.$inject = ['$routeProvider', '$locationProvider'];
     var CatagoryHelper = (function () {
         function CatagoryHelper() {
         }
@@ -45,6 +48,14 @@ var CookbookTs;
         CatagoryHelper.GetString = function (categoryNumber) {
             return this.categories[categoryNumber + 1].label;
         };
+        CatagoryHelper.GetValue = function (categoryName) {
+            for (var _i = 0, _a = this.categories; _i < _a.length; _i++) {
+                var c = _a[_i];
+                if (c.label === categoryName) {
+                    return c.value;
+                }
+            }
+        };
         return CatagoryHelper;
     }());
     CookbookTs.CatagoryHelper = CatagoryHelper;
@@ -52,5 +63,8 @@ var CookbookTs;
     app.config(Config);
     app.service("CookbookTs.Services.RecipeService", ["$http", "$q", CookbookTs.Services.RecipeService]);
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.ListController]);
+    app.controller("CookbookTs.Controllers.AddRecipeController", ["$scope", "CookbookTs.Services.RecipeService", "$location", CookbookTs.Controllers.AddRecipeController]);
+    app.controller("CookbookTs.Controllers.EditRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.EditRecipeController]);
+    app.controller("CookbookTs.Controllers.PrintRecipeController", ["$scope", "$routeParams", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.PrintRecipeController]);
 })(CookbookTs || (CookbookTs = {}));
 //# sourceMappingURL=CookbookTs.js.map

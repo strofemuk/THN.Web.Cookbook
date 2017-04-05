@@ -48,17 +48,19 @@ module CookbookTs.Services {
 
                 self.http.get('/api/recipes/')
                     .then(function (result: any) {
-                        //self.recipeListCache = result.data;
                         self.recipeListCache = new Array<Models.RecipeListItem>();
                         for (var item of result.data) {
                             var listItem: Models.RecipeListItem = {
                                 title: '',
                                 recipeId: 0,
-                                category: ''
+                                category: -1,
+                                categoryText: ''
                             };
                             listItem.title = item.title;
                             listItem.recipeId= item.recipeId;
-                            listItem.category = CookbookTs.CatagoryHelper.GetString(item.category);
+                            listItem.category = item.category;
+                            listItem.categoryText = CookbookTs.CatagoryHelper.GetString(item.category);
+
                             self.recipeListCache.push(listItem);
                         }
                         deferred.resolve(self.recipeListCache);
@@ -70,8 +72,9 @@ module CookbookTs.Services {
             }
         };
 
-        readRecipe = function (id: number): ng.IPromise<any> {
+        readRecipe = function (id: string): ng.IPromise<any> {
             var self = this;
+
             var deferred = self.q.defer();
             self.http.get('/api/Recipes/' + id)
                 .then(function (result: any) {
@@ -79,10 +82,10 @@ module CookbookTs.Services {
                 }, function (error) {
                     deferred.reject(error);
                 });
-            return deferred;
+            return deferred.promise;
         };
 
-        updateRecipe = function (recipe) {
+        updateRecipe = function (recipe : Models.RecipeAndNotes) {
             return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
         };
 

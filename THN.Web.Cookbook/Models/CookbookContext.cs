@@ -25,6 +25,12 @@ namespace THN.Web.Cookbook.Models
             Entry(entity).State = EntityState.Modified;
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Recipe>();//.ToTable("Recipes");
+            modelBuilder.Entity<RecipeNote>();//.ToTable("RecipeNotes");
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

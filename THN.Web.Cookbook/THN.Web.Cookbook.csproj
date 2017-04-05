@@ -216,6 +216,8 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CookbookTs\views\AddRecipe.html" />
+    <Content Include="Scripts\CookbookTs\views\EditRecipe.html" />
     <Content Include="Scripts\CookbookTs\views\RecipeList.html" />
     <Content Include="Views\Home\CookbookTs.cshtml" />
     <TypeScriptCompile Include="Scripts\CookbookTs\Controllers.ts" />

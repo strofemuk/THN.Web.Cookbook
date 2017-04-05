@@ -19,15 +19,19 @@ module CookbookTs {
     }
 
     export class Config {
-        constructor($routeProvider: ng.route.IRouteProvider) {
+        constructor($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) {
             $routeProvider
-                .when("/list", { templateUrl: "/Scripts/CookbookTs/views/RecipeList.html", controller: "CookbookTs.Controllers.ListController" })
-                .when("/add", { templateUrl: "/Scripts/CookbookTs/views/AddRecipe.html", controller: "AddRecipeController" })
-                .when("/edit/:id", { templateUrl: "/Scripts/CookbookTs/views/EditRecipe.html", controller: "EditRecipeController" })
-                .otherwise({ redirectTo: '/list' });
+                .when("/Home/CookbookTs", { templateUrl: "/Scripts/CookbookTs/views/RecipeList.html", controller: "CookbookTs.Controllers.ListController" })
+                .when("/Home/CookbookTs/add", { templateUrl: "/Scripts/CookbookTs/views/AddRecipe.html", controller: "CookbookTs.Controllers.AddRecipeController" })
+                .when("/Home/CookbookTs/edit/:id", { templateUrl: "/Scripts/CookbookTs/views/EditRecipe.html", controller: "CookbookTs.Controllers.EditRecipeController" });
+
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
         }
     }
-    Config.$inject = ['$routeProvider'];
+    Config.$inject = ['$routeProvider', '$locationProvider'];
 
     export class CatagoryHelper {
         static categories = [
@@ -43,6 +47,14 @@ module CookbookTs {
         static GetString = function (categoryNumber: number): string {
             return this.categories[categoryNumber+1].label;
         }
+
+        static GetValue = function (categoryName: string): string {
+            for (var c of this.categories) {
+                if (c.label === categoryName) {
+                    return c.value;
+                }
+            }
+        }
     }
 
 
@@ -50,4 +62,8 @@ module CookbookTs {
     app.config(Config);
     app.service("CookbookTs.Services.RecipeService", ["$http", "$q", Services.RecipeService]);
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", Controllers.ListController]);
+    app.controller("CookbookTs.Controllers.AddRecipeController", ["$scope", "CookbookTs.Services.RecipeService", "$location", Controllers.AddRecipeController]);
+    app.controller("CookbookTs.Controllers.EditRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", Controllers.EditRecipeController]);
+    app.controller("CookbookTs.Controllers.PrintRecipeController", ["$scope", "$routeParams", "CookbookTs.Services.RecipeService", Controllers.PrintRecipeController]);
+
 }

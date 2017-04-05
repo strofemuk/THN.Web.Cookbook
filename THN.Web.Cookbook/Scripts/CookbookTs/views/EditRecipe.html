@@ -1,0 +1,81 @@
+﻿<div >
+    <form class="form-horizontal" role="form" name="recipeForm">
+        <div class="form-group">
+            <div class="col-xs-12">
+                <input id="title" type="text" ng-model="recipe.title" class="form-control" placeholder="Recipe title" required title="Enter recipe title" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-5">
+                <select id="category" class="form-control" ng-options="c.value as c.label for c in categories" ng-model="recipe.category"></select>
+            </div>
+            <div class="col-xs-7">
+                <input id="source" type="text" class="form-control" ng-model="recipe.source" placeholder="Source of this recipe" />
+            </div>
+        </div>
+
+        <div>
+            <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+                <li><a href="#notes" data-toggle="tab">Notes</a></li>
+            </ul>
+            <br />
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="details">
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <textarea id="instructions" class="form-control" rows="10" cols="20" placeholder="Instructions" ng-model="recipe.instructions"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="notes" style="overflow-y:scroll;height:400px;">
+                <div class="container col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-3"><b>DATE</b></div>
+                        <div class="col-xs-6"><b>NOTE</b></div>
+                        <div class="col-xs-3"><b>AGAIN?</b></div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-xs-3">{{newNote.date | date}}</div>
+                        <div class="col-xs-6"><textarea class="form-control" rows="5" ng-model="newNote.text" placeholder="Note text"></textarea></div>
+                        <div class="col-xs-3 btn-group">
+                            <button type="button" class="btn btn-default" ng-click="addNote();">Save</button>
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-thumbs-up" ng-show="newNote.noteType==1"></span>
+                                <span class="glyphicon glyphicon-thumbs-down" ng-show="!newNote.noteType==2"></span>
+                                <span class="glyphicon glyphicon-pencil" ng-show="newNote.noteType==3"></span>
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="newNote.noteType=1;"><span class="glyphicon glyphicon-thumbs-up"></span> You would do this again.</a></li>
+                                <li><a ng-click="newNote.noteType=2;"><span class="glyphicon glyphicon-thumbs-down"></span> You would not do this again.</a></li>
+                                <li><a ng-click="newNote.noteType=0;"><span class="glyphicon glyphicon-pencil"></span> This is just a note.</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row" ng-repeat="note in recipe.notes | orderBy:date:true">
+                        <div class="col-xs-3">{{note.date | date}}</div>
+                        <div class="col-xs-6"><textarea class="form-control" rows="5" readonly ng-model="note.text"></textarea></div>
+                        <div class="col-xs-3">
+                            <span class="label label-success" ng-show="note.noteType==1">
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </span>
+                            <span class="label label-danger" ng-hide="note.noteType==1">
+                                <span class="glyphicon glyphicon-thumbs-down"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="updateRecipe();" type="button">Update</button>
+</div>
