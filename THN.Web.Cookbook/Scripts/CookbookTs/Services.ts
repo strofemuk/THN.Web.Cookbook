@@ -51,11 +51,15 @@ module CookbookTs.Services {
                         //self.recipeListCache = result.data;
                         self.recipeListCache = new Array<Models.RecipeListItem>();
                         for (var item of result.data) {
-                            var listItem : Models.RecipeListItem
+                            var listItem: Models.RecipeListItem = {
+                                title: '',
+                                recipeId: 0,
+                                category: ''
+                            };
                             listItem.title = item.title;
                             listItem.recipeId= item.recipeId;
                             listItem.category = CookbookTs.CatagoryHelper.GetString(item.category);
-                            self.recipeListCache.Push(listItem);
+                            self.recipeListCache.push(listItem);
                         }
                         deferred.resolve(self.recipeListCache);
                     },

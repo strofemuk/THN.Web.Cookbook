@@ -24,11 +24,6 @@ module CookbookTs.Controllers {
             this.service.readRecipes()
                 .then(function (data) {
                     self.$scope.recipes = data;
-                    if (self.$scope.recipes) {
-                        for (var item of self.$scope.recipes) {
-                            //item.catString = self.$scope.categories[item.category + 1].label;
-                        };
-                    };
                 });
         };
 
