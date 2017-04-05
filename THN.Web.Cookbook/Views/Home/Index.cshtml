@@ -6,15 +6,29 @@
     <h1>Steve Trofemuk</h1>
     <p class="lead">Senior Application Developer</p>
     <p>
-        This project exists as a type of business card.  It contains a simple C# project that has been 
-        implemented as both an AngularJs/Web API single page application and an MVC application.<br />
+        This project contains a simple recipe application with all the necessary CRUD functions.
+        In each of the menu items above, you should be able to see a list of recipes that you can
+        search trhough.  Clicking the "edit" link should take you to a form that allows you to edit
+        the recipe and add notse.  Clicking the "print" link should present the recipe in a printer 
+        friendly manner.<br />
         Project Details:
         <ul>
             <li>The application uses Entity Framework on the backend with data migrations enabled. 
-                The database should create itself when the application is run for the first time. </li>
-            <li>This application uses a "code first" approach with optomistic locking.</li>
+                The database should create itself when the application is run for the first time. 
+                You may need to run "update-database" to get the seed data to populate.</li>
+            <li>This application uses a "code first" approach with optomistic locking.  Lock
+                messages are displayed as error messages that allows the user to reload the recipe
+                or abandon all changes.</li>
             <li>The controllers are synchronous.</li>
             <li>The Unit Test are for the controllers only.</li>
+            <li>The AngularJS controllers are tested using Jasmine and Karma.</li>
+            <li>The JavaScript version (Cookbook JS SPA) is written with a "one controller to rule them
+                all" approach.</li>
+            <li>The TypeScript version (Cookbook TS SPA) is written with client side routing where AngularJS
+                handles the views. There is a special route added to the route config to enable the client 
+                routing to function.</li>
+            <li>This is the project I use to test new ideas and new technologies.  As such it is constantly in 
+                flux.  If something doesn't work it's because I'm trying new things.</li>
         </ul>
     </p>
     <p><a href="https://www.linkedin.com/in/trofemuk/" class="btn btn-primary btn-lg">LinkedIn &raquo;</a></p>
