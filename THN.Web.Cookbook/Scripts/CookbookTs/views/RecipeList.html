@@ -38,10 +38,10 @@
             <td>{{ recipe.title }}</td>
             <td>{{ recipe.categoryText }}</td>
             <td>
-                <a href="/Home/CookbookTs/edit/{{recipe.recipeId}}"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-                <a href="/Home/CookbookTs/print/{{recipe.recipeId}}"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
-                <a href="/Home/CookbookTs/delete/{{recipe.recipeId}}"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
-                <!--<span class="glyphicon glyphicon-send"></span>-->
+                <a href="/Home/CookbookTs/edit/{{recipe.recipeId}}"><span title="Edit" class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/print/{{recipe.recipeId}}"><span title="Print" class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/delete/{{recipe.recipeId}}"><span title="Delete" class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
+                <span title="Send" class="glyphicon glyphicon-send disabled"></span>
             </td>
         </tr>
     </table>
