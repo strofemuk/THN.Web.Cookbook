@@ -40,19 +40,19 @@ module CookbookTs.Controllers {
     export class AddRecipeController {
         private $scope: Models.IAddRecipeScope;
         private service: Services.RecipeService;
-        private $location: ng.ILocationService;
+        private $window: ng.IWindowService;
 
-        constructor($scope: Models.IAddRecipeScope, $location: ng.ILocationService, service: Services.RecipeService) {
+        constructor($scope: Models.IAddRecipeScope, $window: ng.IWindowService, service: Services.RecipeService) {
             var self = this;
 
             self.$scope = $scope;
             self.service = service;
-            self.$location = $location;
+            self.$window = $window;
 
             self.$scope.saveRecipe = function () {
                 self.service.createRecipe(self.$scope.recipe)
                     .then(function (data) {
-                        self.$location.url("/Home/CookbookTs");
+                        self.$window.location.href = "/Home/CookbookTs";
                     });
             }
 
@@ -104,20 +104,20 @@ module CookbookTs.Controllers {
         private $scope: Models.IDeleteRecipeScope;
         private service: Services.RecipeService;
         private $routeParams: Models.IRecipeRouteParams;
-        private $location: ng.ILocationService;
+        private $window: ng.IWindowService;
 
-        constructor($scope: Models.IDeleteRecipeScope, $routeParams: Models.IRecipeRouteParams, $location: ng.ILocationService, service: Services.RecipeService) {
+        constructor($scope: Models.IDeleteRecipeScope, $routeParams: Models.IRecipeRouteParams, $window: ng.IWindowService, service: Services.RecipeService) {
             var self = this;
 
             self.$scope = $scope;
             self.service = service;
             self.$routeParams = $routeParams;
-            self.$location = $location;
+            self.$window = $window;
 
             self.$scope.deleteRecipe = function () {
                 self.service.deleteRecipe(self.$scope.recipe.recipeId)
                     .then(function (data) {
-                        self.$location.url("/Home/CookbookTs");
+                        self.$window.location.href = "/Home/CookbookTs";
                     });
             }
 
@@ -138,28 +138,30 @@ module CookbookTs.Controllers {
         private $scope: Models.IEditRecipeScope;
         private service: Services.RecipeService;
         private $routeParams: Models.IRecipeRouteParams;
-        private $location: ng.ILocationService;
+        private $window: ng.IWindowService;
 
-        constructor($scope: Models.IEditRecipeScope, $routeParams: Models.IRecipeRouteParams, $location: ng.ILocationService, service: Services.RecipeService) {
+        constructor($scope: Models.IEditRecipeScope, $routeParams: Models.IRecipeRouteParams, $window: ng.IWindowService, service: Services.RecipeService) {
             var self = this;
             
             self.$scope = $scope;
             self.service = service;
             self.$routeParams = $routeParams;
-            self.$location = $location
+            self.$window = $window;
 
             
             self.$scope.updateRecipe = function() {
                 self.service.updateRecipe(self.$scope.recipe)
                     .then(function (data) {
-                        self.$location.url("/Home/CookbookTs");
+                        self.$window.location.href = "/Home/CookbookTs";
+                        //self.$location.url("/Home/CookbookTs");
                     });
             };
 
             self.$scope.addNote = function() {
                 self.service.addNote(self.$scope.newNote)
                     .then(function (data) {
-                        self.$location.url('/Home/CookbookTs')
+                        self.$window.location.href = "/Home/CookbookTs";
+                        //self.$location.url('/Home/CookbookTs')
                     });
             }
 

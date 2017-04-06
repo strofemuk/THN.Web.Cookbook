@@ -65,9 +65,9 @@ var CookbookTs;
     app.config(Config);
     app.service("CookbookTs.Services.RecipeService", ["$http", "$q", CookbookTs.Services.RecipeService]);
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.ListController]);
-    app.controller("CookbookTs.Controllers.AddRecipeController", ["$scope", "CookbookTs.Services.RecipeService", "$location", CookbookTs.Controllers.AddRecipeController]);
-    app.controller("CookbookTs.Controllers.EditRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.EditRecipeController]);
-    app.controller("CookbookTs.Controllers.DeleteRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.DeleteRecipeController]);
+    app.controller("CookbookTs.Controllers.AddRecipeController", ["$scope", "$window", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.AddRecipeController]);
+    app.controller("CookbookTs.Controllers.EditRecipeController", ["$scope", "$routeParams", "$window", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.EditRecipeController]);
+    app.controller("CookbookTs.Controllers.DeleteRecipeController", ["$scope", "$routeParams", "$window", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.DeleteRecipeController]);
     app.controller("CookbookTs.Controllers.PrintRecipeController", ["$scope", "$routeParams", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.PrintRecipeController]);
 })(CookbookTs || (CookbookTs = {}));
 //# sourceMappingURL=CookbookTs.js.map

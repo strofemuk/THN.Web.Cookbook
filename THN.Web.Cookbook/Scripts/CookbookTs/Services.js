@@ -14,7 +14,7 @@ var CookbookTs;
                     }, function (error) {
                         deferred.reject(error);
                     });
-                    return deferred;
+                    return deferred.promise;
                 };
                 this.readRecipes = function (fetchFromService) {
                     var self = this;

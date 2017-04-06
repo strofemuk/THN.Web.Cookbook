@@ -24,10 +24,9 @@ module CookbookTs.Services {
                     deferred.resolve();
                 }, function (error) {
                     deferred.reject(error);
-                }
-                );
+                });
 
-            return deferred;
+            return deferred.promise;
         }
 
         readRecipes = function (fetchFromService?: boolean): ng.IPromise<any> {
