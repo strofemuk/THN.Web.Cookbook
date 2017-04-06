@@ -222,6 +222,7 @@
     <Content Include="Scripts\CookbookTs\views\PrintRecipe.html" />
     <Content Include="Scripts\CookbookTs\views\RecipeList.html" />
     <Content Include="Views\Home\CookbookTs.cshtml" />
+    <Content Include="Views\Home\CookBookAngular4.cshtml" />
     <TypeScriptCompile Include="Scripts\CookbookTs\Controllers.ts" />
     <Content Include="Scripts\CookbookJs\controllers\recipeController.js" />
     <Content Include="Scripts\CookbookJs\services\recipeService.js" />
