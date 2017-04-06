@@ -51,6 +51,10 @@
         newNote: Models.RecipeNote;
     }
 
+    export interface IDeleteRecipeScope extends IScopeWithRecipe {
+        deleteRecipe: Function;
+    }
+
     export interface IRecipeRouteParams extends ng.route.IRouteParamsService {
         id: string;
     }

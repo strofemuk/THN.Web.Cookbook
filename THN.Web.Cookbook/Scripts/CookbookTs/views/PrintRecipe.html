@@ -1,0 +1,32 @@
+﻿<div class="container col-xs-12">
+    <div class="row col-xs-12">
+        <div class="col-xs-1">
+            <button class="btn btn-primary" onclick="location.href='/Home/CookbookTs'" type="button"><span class="glyphicon glyphicon-backward"></span></button>
+        </div>
+        <div class="col-xs-11">
+            <h1>{{recipe.title}}</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6"><h3>Category: {{categories[recipe.category+1].label}}</h3></div>
+            <div class="col-xs-6"><h3>Source: {{recipe.source}}</h3></div>
+        </div>
+    </div>
+    <hr />
+    <div class="row col-xs-12">
+        <div class="col-xs-6">
+            <textarea ng-bind="recipe.instructions" class="container-fluid col-xs-6" rows="40" style="border:none;" readonly></textarea>
+            <!--<div style="word-wrap:break-word;display:inline;">{{recipe.instructions}}</div>-->
+        </div>
+        <div class="col-xs-6" style="background-color:#c3c3c3 ;">
+            <div class="row text-center"><h4>N - O - T - E - S</h4></div><hr />
+            <div class="row" ng-repeat="note in recipe.notes | orderBy:date:true">
+                <div class="col-xs-3">{{note.date | date}}</div>
+                <div class="col-xs-3">
+                    <!--<textarea ng-bind="note.text" rows="5" style="border:none;background-color:#c3c3c3;min-width:100%" readonly></textarea>-->
+                    <div style="word-wrap:break-word;display:inline;" contenteditable="true" ng-bind="note.text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,6 +23,8 @@ module CookbookTs {
             $routeProvider
                 .when("/Home/CookbookTs", { templateUrl: "/Scripts/CookbookTs/views/RecipeList.html", controller: "CookbookTs.Controllers.ListController" })
                 .when("/Home/CookbookTs/add", { templateUrl: "/Scripts/CookbookTs/views/AddRecipe.html", controller: "CookbookTs.Controllers.AddRecipeController" })
+                .when("/Home/CookbookTs/print/:id", { templateUrl: "/Scripts/CookbookTs/views/PrintRecipe.html", controller: "CookbookTs.Controllers.PrintRecipeController" })
+                .when("/Home/CookbookTs/delete/:id", { templateUrl: "/Scripts/CookbookTs/views/ConfirmDelete.html", controller: "CookbookTs.Controllers.DeleteRecipeController" })
                 .when("/Home/CookbookTs/edit/:id", { templateUrl: "/Scripts/CookbookTs/views/EditRecipe.html", controller: "CookbookTs.Controllers.EditRecipeController" });
 
             $locationProvider.html5Mode({
@@ -64,6 +66,7 @@ module CookbookTs {
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", Controllers.ListController]);
     app.controller("CookbookTs.Controllers.AddRecipeController", ["$scope", "CookbookTs.Services.RecipeService", "$location", Controllers.AddRecipeController]);
     app.controller("CookbookTs.Controllers.EditRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", Controllers.EditRecipeController]);
+    app.controller("CookbookTs.Controllers.DeleteRecipeController", ["$scope", "$routeParams", "$location", "CookbookTs.Services.RecipeService", Controllers.DeleteRecipeController]);
     app.controller("CookbookTs.Controllers.PrintRecipeController", ["$scope", "$routeParams", "CookbookTs.Services.RecipeService", Controllers.PrintRecipeController]);
 
 }

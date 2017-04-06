@@ -38,7 +38,7 @@ var CookbookTs;
                 self.$scope.saveRecipe = function () {
                     self.service.createRecipe(self.$scope.recipe)
                         .then(function (data) {
-                        self.$location.url("/HOme/CookbookTs");
+                        self.$location.url("/Home/CookbookTs");
                     });
                 };
                 self.init();
@@ -77,6 +77,31 @@ var CookbookTs;
             return PrintRecipeController;
         }());
         Controllers.PrintRecipeController = PrintRecipeController;
+        var DeleteRecipeController = (function () {
+            function DeleteRecipeController($scope, $routeParams, $location, service) {
+                var self = this;
+                self.$scope = $scope;
+                self.service = service;
+                self.$routeParams = $routeParams;
+                self.$location = $location;
+                self.$scope.deleteRecipe = function () {
+                    self.service.deleteRecipe(self.$scope.recipe.recipeId)
+                        .then(function (data) {
+                        self.$location.url("/Home/CookbookTs");
+                    });
+                };
+                self.init();
+            }
+            DeleteRecipeController.prototype.init = function () {
+                var self = this;
+                self.service.readRecipe(self.$routeParams.id)
+                    .then(function (data) {
+                    self.$scope.recipe = data;
+                });
+            };
+            return DeleteRecipeController;
+        }());
+        Controllers.DeleteRecipeController = DeleteRecipeController;
         var EditRecipeController = (function () {
             function EditRecipeController($scope, $routeParams, $location, service) {
                 var self = this;
@@ -87,13 +112,13 @@ var CookbookTs;
                 self.$scope.updateRecipe = function () {
                     self.service.updateRecipe(self.$scope.recipe)
                         .then(function (data) {
-                        self.$location.url("/Home/CookbookTs/");
+                        self.$location.url("/Home/CookbookTs");
                     });
                 };
                 self.$scope.addNote = function () {
                     self.service.addNote(self.$scope.newNote)
                         .then(function (data) {
-                        self.$location.url('/Home/CookbookTs/');
+                        self.$location.url('/Home/CookbookTs');
                     });
                 };
                 self.init();
