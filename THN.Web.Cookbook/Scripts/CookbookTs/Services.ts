@@ -23,6 +23,12 @@ module CookbookTs.Services {
                 .then(function (result) {
                     deferred.resolve();
                 }, function (error) {
+                    if (error.data.modelState) {
+                        for (var returnError of error.data.modelState) {
+                            deferred.reject(returnError);
+                        }
+
+                    }
                     if (error.data.message) {
                         deferred.reject(error.data.message);
                     } else {
