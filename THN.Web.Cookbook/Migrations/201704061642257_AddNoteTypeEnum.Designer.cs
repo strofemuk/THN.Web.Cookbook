@@ -9,11 +9,11 @@ namespace THN.Web.Cookbook.Migrations
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
     public sealed partial class AddNoteTypeEnum : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(NoteTypeEnum));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNoteTypeEnum));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703241448140_NoteTypeEnum"; }
+            get { return "201704061642257_AddNoteTypeEnum"; }
         }
         
         string IMigrationMetadata.Source

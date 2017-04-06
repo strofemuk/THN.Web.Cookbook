@@ -154,10 +154,6 @@
     <Compile Include="Migrations\201703241332598_Concurrency.Designer.cs">
       <DependentUpon>201703241332598_Concurrency.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703241448140_AddNoteTypeEnum.cs" />
-    <Compile Include="Migrations\201703241448140_AddNoteTypeEnum.Designer.cs">
-      <DependentUpon>201703241448140_AddNoteTypeEnum.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201703271528156_RecipeListViewModel.cs" />
     <Compile Include="Migrations\201703271528156_RecipeListViewModel.Designer.cs">
       <DependentUpon>201703271528156_RecipeListViewModel.cs</DependentUpon>
@@ -165,6 +161,10 @@
     <Compile Include="Migrations\201703312023347_TextRequired.cs" />
     <Compile Include="Migrations\201703312023347_TextRequired.Designer.cs">
       <DependentUpon>201703312023347_TextRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704061642257_AddNoteTypeEnum.cs" />
+    <Compile Include="Migrations\201704061642257_AddNoteTypeEnum.Designer.cs">
+      <DependentUpon>201704061642257_AddNoteTypeEnum.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CookbookContext.cs" />
@@ -1009,26 +1009,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703231620098_Initial.resx">
-      <DependentUpon>201703231620098_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703231859160_RemoveKeyAttribute.resx">
-      <DependentUpon>201703231859160_RemoveKeyAttribute.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241332598_Concurrency.resx">
-      <DependentUpon>201703241332598_Concurrency.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703241448140_AddNoteTypeEnum.resx">
-      <DependentUpon>201703241448140_AddNoteTypeEnum.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703271528156_RecipeListViewModel.resx">
-      <DependentUpon>201703271528156_RecipeListViewModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703312023347_TextRequired.resx">
-      <DependentUpon>201703312023347_TextRequired.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\CookbookTs\CookbookTs.ts" />
     <TypeScriptCompile Include="Scripts\CookbookTs\Models.ts" />
     <TypeScriptCompile Include="Scripts\CookbookTs\Services.ts" />
@@ -1041,6 +1021,26 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201703231620098_Initial.resx">
+      <DependentUpon>201703231620098_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703231859160_RemoveKeyAttribute.resx">
+      <DependentUpon>201703231859160_RemoveKeyAttribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703241332598_Concurrency.resx">
+      <DependentUpon>201703241332598_Concurrency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703271528156_RecipeListViewModel.resx">
+      <DependentUpon>201703271528156_RecipeListViewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703312023347_TextRequired.resx">
+      <DependentUpon>201703312023347_TextRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704061642257_AddNoteTypeEnum.resx">
+      <DependentUpon>201704061642257_AddNoteTypeEnum.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

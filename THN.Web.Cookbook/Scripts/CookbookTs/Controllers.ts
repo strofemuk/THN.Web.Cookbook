@@ -168,9 +168,10 @@ module CookbookTs.Controllers {
                     });
             };
 
-            self.$scope.addNote = function() {
+            self.$scope.addNote = function () {
                 self.service.addNote(self.$scope.newNote)
                     .then(function (data) {
+                        self.initNewNote();
                         self.$window.location.href = "/Home/CookbookTs";
                     }, function (error) {
                         self.$scope.error = error;
@@ -182,14 +183,28 @@ module CookbookTs.Controllers {
 
         private init(): void {
             var self = this;
+
+            self.initNewNote();
+
             self.service.readRecipe(self.$routeParams.id)
                 .then(function (data) {
                     self.$scope.recipe = data;
+                    self.$scope.newNote.recipeFk = self.$scope.recipe.recipeId;
                 }, function (error) {
                     self.$scope.error = error;
                 });
 
             self.$scope.categories = CookbookTs.CatagoryHelper.categories;
         }        
+
+        private initNewNote(): void {
+            var self = this;
+            self.$scope.newNote = {
+                noteType: 0,
+                text: '',
+                date: new Date().toDateString(),
+                recipeFk: 0
+            };
+        }
     }
 }

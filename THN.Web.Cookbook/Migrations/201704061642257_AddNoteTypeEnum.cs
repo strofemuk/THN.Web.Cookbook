@@ -8,6 +8,7 @@ namespace THN.Web.Cookbook.Migrations
         public override void Up()
         {
             AddColumn("dbo.RecipeNotes", "NoteType", c => c.Int(nullable: false));
+            AlterColumn("dbo.RecipeNotes", "Text", c => c.String(nullable: false));
             DropColumn("dbo.RecipeNotes", "NoteOnly");
             DropColumn("dbo.RecipeNotes", "DoAgain");
         }
@@ -16,6 +17,7 @@ namespace THN.Web.Cookbook.Migrations
         {
             AddColumn("dbo.RecipeNotes", "DoAgain", c => c.Boolean(nullable: false));
             AddColumn("dbo.RecipeNotes", "NoteOnly", c => c.Boolean(nullable: false));
+            AlterColumn("dbo.RecipeNotes", "Text", c => c.String());
             DropColumn("dbo.RecipeNotes", "NoteType");
         }
     }
