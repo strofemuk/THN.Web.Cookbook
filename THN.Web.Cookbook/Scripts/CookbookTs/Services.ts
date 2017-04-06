@@ -24,10 +24,7 @@ module CookbookTs.Services {
                     deferred.resolve();
                 }, function (error) {
                     if (error.data.modelState) {
-                        for (var returnError of error.data.modelState) {
-                            deferred.reject(returnError);
-                        }
-
+                        deferred.reject("Validation error.");
                     }
                     if (error.data.message) {
                         deferred.reject(error.data.message);
