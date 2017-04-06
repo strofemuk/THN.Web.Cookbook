@@ -26,6 +26,8 @@ module CookbookTs.Controllers {
             this.service.readRecipes()
                 .then(function (data) {
                     self.$scope.theRecipeList = data;
+                }, function (error) {
+                    self.$scope.error = error;
                 });
 
             //set the initial sort type and sort direction 
@@ -53,6 +55,8 @@ module CookbookTs.Controllers {
                 self.service.createRecipe(self.$scope.recipe)
                     .then(function (data) {
                         self.$window.location.href = "/Home/CookbookTs";
+                    }, function (error) {
+                        self.$scope.error = error;
                     });
             }
 
@@ -95,6 +99,8 @@ module CookbookTs.Controllers {
             self.service.readRecipe( self.$routeParams.id )
                 .then(function (data) {
                     self.$scope.recipe = data;
+                }, function (error) {
+                    self.$scope.error = error;
                 });
 
         }
@@ -118,6 +124,8 @@ module CookbookTs.Controllers {
                 self.service.deleteRecipe(self.$scope.recipe.recipeId)
                     .then(function (data) {
                         self.$window.location.href = "/Home/CookbookTs";
+                    }, function (error) {
+                        self.$scope.error = error;
                     });
             }
 
@@ -129,6 +137,8 @@ module CookbookTs.Controllers {
             self.service.readRecipe(self.$routeParams.id)
                 .then(function (data) {
                     self.$scope.recipe = data;
+                }, function (error) {
+                    self.$scope.error = error;
                 });
 
         }
@@ -153,7 +163,8 @@ module CookbookTs.Controllers {
                 self.service.updateRecipe(self.$scope.recipe)
                     .then(function (data) {
                         self.$window.location.href = "/Home/CookbookTs";
-                        //self.$location.url("/Home/CookbookTs");
+                    }, function (error) {
+                        self.$scope.error = error;
                     });
             };
 
@@ -161,7 +172,8 @@ module CookbookTs.Controllers {
                 self.service.addNote(self.$scope.newNote)
                     .then(function (data) {
                         self.$window.location.href = "/Home/CookbookTs";
-                        //self.$location.url('/Home/CookbookTs')
+                    }, function (error) {
+                        self.$scope.error = error;
                     });
             }
 
@@ -173,6 +185,8 @@ module CookbookTs.Controllers {
             self.service.readRecipe(self.$routeParams.id)
                 .then(function (data) {
                     self.$scope.recipe = data;
+                }, function (error) {
+                    self.$scope.error = error;
                 });
 
             self.$scope.categories = CookbookTs.CatagoryHelper.categories;

@@ -62,12 +62,26 @@ var CookbookTs;
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (error) {
-                        deferred.reject(error);
+                        deferred.reject(error.statusText);
                     });
                     return deferred.promise;
                 };
                 this.updateRecipe = function (recipe) {
-                    return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
+                    var self = this;
+                    var deferred = self.q.defer();
+                    //return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
+                    self.http.put('/api/Recipes/' + recipe.recipeId, recipe)
+                        .then(function () {
+                        deferred.resolve();
+                    }, function (error) {
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
+                    });
+                    return deferred.promise;
                 };
                 this.deleteRecipe = function (condemnedId) {
                     return this.http.delete('/api/Recipes/' + condemnedId);

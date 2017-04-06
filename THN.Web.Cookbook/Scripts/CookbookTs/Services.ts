@@ -23,7 +23,11 @@ module CookbookTs.Services {
                 .then(function (result) {
                     deferred.resolve();
                 }, function (error) {
-                    deferred.reject(error);
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
                 });
 
             return deferred.promise;
@@ -65,7 +69,11 @@ module CookbookTs.Services {
                         deferred.resolve(self.recipeListCache);
                     },
                     function (error) {
-                        deferred.reject(error);
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        } else {
+                            deferred.reject(error.statusText);
+                        }
                     });
                 return deferred.promise;
             }
@@ -79,25 +87,83 @@ module CookbookTs.Services {
                 .then(function (result: any) {
                     deferred.resolve(result.data);
                 }, function (error) {
-                    deferred.reject(error);
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
                 });
             return deferred.promise;
         };
 
-        updateRecipe = function (recipe : Models.RecipeAndNotes) {
-            return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
+        updateRecipe = function (recipe: Models.RecipeAndNotes): ng.IPromise<any> {
+            var self = this;
+
+            var deferred = self.q.defer();
+            //return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
+            self.http.put('/api/Recipes/' + recipe.recipeId, recipe)
+                .then(function () {
+                    deferred.resolve();
+                }, function (error) {
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
+                });
+            return deferred.promise;
         };
 
         deleteRecipe = function (condemnedId) {
-            return this.http.delete('/api/Recipes/' + condemnedId);
+            var self = this;
+
+            var deferred = self.q.defer();
+            self.http.delete('/api/Recipes/' + condemnedId)
+                .then(function () {
+                    deferred.resolve();
+                }, function (error) {
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
+                });
+            return deferred.promise
         };
 
         addNote = function (note) {
-            return this.http.post('/api/RecipeNotes/', note);
+            var self = this;
+
+            var deferred = self.q.defer();
+            self.http.post('/api/RecipeNotes/', note)
+                .then(function () {
+                    deferred.resolve();
+                }, function (error) {
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
+                });
+            return deferred.promise
         };
 
         getNotes = function (id) {
-            return this.http.get('/api/RecipeNotes/' + id);
+            var self = this;
+
+            var deferred = self.q.defer();
+            self.http.get('/api/RecipeNotes/' + id)
+                .then(function (result: any) {
+                    deferred.resolve(result.data);
+                }, function (error) {
+                    if (error.data.message) {
+                        deferred.reject(error.data.message);
+                    } else {
+                        deferred.reject(error.statusText);
+                    }
+                });
+            return deferred.promise
+            
         };
     }
 } 

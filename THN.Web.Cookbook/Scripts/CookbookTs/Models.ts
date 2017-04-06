@@ -29,19 +29,22 @@
         sortColumn: string;
         sortAsc: boolean;
         searchString: string;
+        error: string;
     }
 
     export interface IScopeWithRecipe extends ng.IScope {
         recipe: Models.Recipe;
+        error: string;
+    }
+
+    export interface IScopeWithRecipeAndNotes {
+        recipe: Models.RecipeAndNotes;
+        error: string;
     }
 
     export interface IAddRecipeScope extends IScopeWithRecipe {
         categories: Array<any>;
         saveRecipe: Function;
-    }
-
-    export interface IScopeWithRecipeAndNotes {
-        recipe: Models.RecipeAndNotes;
     }
 
     export interface IEditRecipeScope extends IScopeWithRecipeAndNotes {

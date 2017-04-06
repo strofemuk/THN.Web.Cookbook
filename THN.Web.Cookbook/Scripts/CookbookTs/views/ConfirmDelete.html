@@ -1,4 +1,7 @@
-﻿<div>
+﻿<div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+    {{error}}
+</div>
+<div>
     <p>Are you sure you want to delete this recipe?</p>
     <h1>{{recipe.title}}</h1>
     <button class="btn btn-primary" ng-click="deleteRecipe();" type="button">Yes, delete this recipe.</button>

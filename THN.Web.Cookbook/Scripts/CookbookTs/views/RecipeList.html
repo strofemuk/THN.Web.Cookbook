@@ -1,5 +1,8 @@
 ﻿<!-- The following is the list and search box with buttons and sorting -->
-<div id="mainScreen">
+<div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+    {{error}}
+</div>
+<div id="mainScreen" ng-show="theRecipeList">
     <form>
         <div class="form-group">
             <div class="input-group">
@@ -35,9 +38,9 @@
             <td>{{ recipe.title }}</td>
             <td>{{ recipe.categoryText }}</td>
             <td>
-                <a href="/Home/CookbookTs/edit/{{recipe.recipeId}}" ><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
-                <a href="/Home/CookbookTs/print/{{recipe.recipeId}}" ><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
-                <a href="/Home/CookbookTs/delete/{{recipe.recipeId}}" ><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/edit/{{recipe.recipeId}}"><span class="glyphicon glyphicon-edit"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/print/{{recipe.recipeId}}"><span class="glyphicon glyphicon-print"></span></a>&nbsp;&nbsp;
+                <a href="/Home/CookbookTs/delete/{{recipe.recipeId}}"><span class="glyphicon glyphicon-trash"></span></a>&nbsp;&nbsp;
                 <!--<span class="glyphicon glyphicon-send"></span>-->
             </td>
         </tr>

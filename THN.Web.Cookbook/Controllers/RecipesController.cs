@@ -70,7 +70,7 @@ namespace THN.Web.Cookbook.Controllers
                 }
                 else
                 {
-                    throw;
+                    return BadRequest("The data you are trying to save is older than the data in the database.  Please refresh.");
                 }
             }
 
