@@ -19,12 +19,14 @@ module CookbookTs.Services {
             var self = this;
             var deferred = self.q.defer();
 
+            if (recipe.category < 0 || recipe.category > 5) recipe.category = 5;
+
             self.http.post('/api/Recipes/', recipe)
                 .then(function (result) {
                     deferred.resolve();
                 }, function (error) {
                     if (error.data.modelState) {
-                        deferred.reject("Validation error.");
+                        deferred.reject("The server caught a validation error.");
                     }
                     if (error.data.message) {
                         deferred.reject(error.data.message);
@@ -101,6 +103,8 @@ module CookbookTs.Services {
 
         updateRecipe = function (recipe: Models.RecipeAndNotes): ng.IPromise<any> {
             var self = this;
+
+            if (recipe.category < 0 || recipe.category > 5) recipe.category = 5;
 
             var deferred = self.q.defer();
             //return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);

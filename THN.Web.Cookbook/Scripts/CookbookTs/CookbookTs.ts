@@ -60,7 +60,7 @@ module CookbookTs {
     }
 
 
-    var app = angular.module('CookbookTs', ['ngRoute']);
+    var app = angular.module('CookbookTs', ['ngRoute','ngMessages']);
     app.config(Config);
     app.service("CookbookTs.Services.RecipeService", ["$http", "$q", Services.RecipeService]);
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", Controllers.ListController]);

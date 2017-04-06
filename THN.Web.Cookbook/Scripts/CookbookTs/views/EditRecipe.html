@@ -1,11 +1,14 @@
 ﻿<div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
     {{error}}
 </div>
+<div ng-show="recipeForm.title.$invalid" class="alert alert-danger" ng-messages="recipeForm.title.$error">
+    <div ng-message="required">This recipe title is required</div>
+</div>
 <div ng-show="recipe">
     <form class="form-horizontal" role="form" name="recipeForm">
         <div class="form-group">
             <div class="col-xs-12">
-                <input id="title" type="text" ng-model="recipe.title" class="form-control" placeholder="Recipe title" required title="Enter recipe title" />
+                <input id="title" name="title" type="text" ng-model="recipe.title" class="form-control" placeholder="Recipe title" required title="Enter recipe title" />
             </div>
         </div>
 
@@ -80,6 +83,6 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-show="recipe" ng-click="updateRecipe();" type="button">Update</button>
+    <button class="btn btn-primary" ng-show="recipe" ng-disabled="recipeForm.$invalid" ng-click="updateRecipe();" type="button">Update</button>
     <button class="btn btn-primary" onclick="location.href='/Home/CookbookTs'" type="button">Cancel</button>
 </div>
