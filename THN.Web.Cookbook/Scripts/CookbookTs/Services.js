@@ -8,11 +8,21 @@ var CookbookTs;
                 this.createRecipe = function (recipe) {
                     var self = this;
                     var deferred = self.q.defer();
+                    if (recipe.category < 0 || recipe.category > 5)
+                        recipe.category = 5;
                     self.http.post('/api/Recipes/', recipe)
                         .then(function (result) {
                         deferred.resolve();
                     }, function (error) {
-                        deferred.reject(error);
+                        if (error.data.modelState) {
+                            deferred.reject("The server caught a validation error.");
+                        }
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
                     });
                     return deferred.promise;
                 };
@@ -50,7 +60,12 @@ var CookbookTs;
                             }
                             deferred.resolve(self.recipeListCache);
                         }, function (error) {
-                            deferred.reject(error);
+                            if (error.data.message) {
+                                deferred.reject(error.data.message);
+                            }
+                            else {
+                                deferred.reject(error.statusText);
+                            }
                         });
                         return deferred.promise;
                     }
@@ -62,12 +77,19 @@ var CookbookTs;
                         .then(function (result) {
                         deferred.resolve(result.data);
                     }, function (error) {
-                        deferred.reject(error.statusText);
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
                     });
                     return deferred.promise;
                 };
                 this.updateRecipe = function (recipe) {
                     var self = this;
+                    if (recipe.category < 0 || recipe.category > 5)
+                        recipe.category = 5;
                     var deferred = self.q.defer();
                     //return this.http.put('/api/Recipes/' + recipe.recipeId, recipe);
                     self.http.put('/api/Recipes/' + recipe.recipeId, recipe)
@@ -84,13 +106,52 @@ var CookbookTs;
                     return deferred.promise;
                 };
                 this.deleteRecipe = function (condemnedId) {
-                    return this.http.delete('/api/Recipes/' + condemnedId);
+                    var self = this;
+                    var deferred = self.q.defer();
+                    self.http.delete('/api/Recipes/' + condemnedId)
+                        .then(function () {
+                        deferred.resolve();
+                    }, function (error) {
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
+                    });
+                    return deferred.promise;
                 };
                 this.addNote = function (note) {
-                    return this.http.post('/api/RecipeNotes/', note);
+                    var self = this;
+                    var deferred = self.q.defer();
+                    self.http.post('/api/RecipeNotes/', note)
+                        .then(function () {
+                        deferred.resolve();
+                    }, function (error) {
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
+                    });
+                    return deferred.promise;
                 };
                 this.getNotes = function (id) {
-                    return this.http.get('/api/RecipeNotes/' + id);
+                    var self = this;
+                    var deferred = self.q.defer();
+                    self.http.get('/api/RecipeNotes/' + id)
+                        .then(function (result) {
+                        deferred.resolve(result.data);
+                    }, function (error) {
+                        if (error.data.message) {
+                            deferred.reject(error.data.message);
+                        }
+                        else {
+                            deferred.reject(error.statusText);
+                        }
+                    });
+                    return deferred.promise;
                 };
                 this.http = $http;
                 this.q = $q;

@@ -130,6 +130,7 @@ var CookbookTs;
                 self.$scope.addNote = function () {
                     self.service.addNote(self.$scope.newNote)
                         .then(function (data) {
+                        self.initNewNote();
                         self.$window.location.href = "/Home/CookbookTs";
                     }, function (error) {
                         self.$scope.error = error;
@@ -139,13 +140,24 @@ var CookbookTs;
             }
             EditRecipeController.prototype.init = function () {
                 var self = this;
+                self.initNewNote();
                 self.service.readRecipe(self.$routeParams.id)
                     .then(function (data) {
                     self.$scope.recipe = data;
+                    self.$scope.newNote.recipeFk = self.$scope.recipe.recipeId;
                 }, function (error) {
                     self.$scope.error = error;
                 });
                 self.$scope.categories = CookbookTs.CatagoryHelper.categories;
+            };
+            EditRecipeController.prototype.initNewNote = function () {
+                var self = this;
+                self.$scope.newNote = {
+                    noteType: 0,
+                    text: '',
+                    date: new Date().toDateString(),
+                    recipeFk: 0
+                };
             };
             return EditRecipeController;
         }());

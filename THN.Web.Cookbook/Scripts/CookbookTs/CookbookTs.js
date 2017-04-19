@@ -61,7 +61,7 @@ var CookbookTs;
         return CatagoryHelper;
     }());
     CookbookTs.CatagoryHelper = CatagoryHelper;
-    var app = angular.module('CookbookTs', ['ngRoute']);
+    var app = angular.module('CookbookTs', ['ngRoute', 'ngMessages']);
     app.config(Config);
     app.service("CookbookTs.Services.RecipeService", ["$http", "$q", CookbookTs.Services.RecipeService]);
     app.controller("CookbookTs.Controllers.ListController", ["$scope", "CookbookTs.Services.RecipeService", CookbookTs.Controllers.ListController]);
