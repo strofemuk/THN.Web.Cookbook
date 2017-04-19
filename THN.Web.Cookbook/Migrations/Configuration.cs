@@ -26,7 +26,7 @@ namespace THN.Web.Cookbook.Migrations
                     },
                     new Recipe
                     {
-                        RecipeId = 1,
+                        RecipeId = 2,
                         Title = "Green Bean Casserole",
                         Source = "Internet",
                         Category = CategoryEnum.Side_Dish,
